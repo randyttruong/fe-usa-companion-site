@@ -14,7 +14,6 @@ app.post('/update-homepage', (req, res) => {
         // Your updated source code here
     `;
 
-    // Save updated source code to a file or database
     fs.writeFileSync('fe-usa-tsx/fe-usa/src/pages/HomePage.tsx', updatedSourceCode);
 
     res.json({ message: 'Homepage updated successfully' });
