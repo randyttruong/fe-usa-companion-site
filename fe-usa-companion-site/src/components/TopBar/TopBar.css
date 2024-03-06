@@ -1,0 +1,14 @@
+.topbar-container { 
+    display: flex;
+    justify-content: right;
+    width: 100%; 
+    height: 20px;
+    background-color: #030042;
+    overflow: auto;
+}
+
+.topbar-content {
+    color: white;
+    font-size: 10px;
+    padding: 4px;
+}

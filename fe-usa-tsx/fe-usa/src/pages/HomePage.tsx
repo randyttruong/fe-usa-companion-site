@@ -34,7 +34,7 @@ const HomePage = () => {
         <Slider></Slider>
 
             <Container maxWidth = "sm">
-                <Typography variant = "h4" sx = {{textAlign: 'center', fontWeight: 'bold', marginTop: 5}} > new text 2</Typography>
+                <Typography variant = "h4" sx = {{textAlign: 'center', fontWeight: 'bold', marginTop: 5}} > nice</Typography>
             </Container>
 
 {/* issue is from how paragraph is wrapping div and header elements. only contains styling so move styling */}
