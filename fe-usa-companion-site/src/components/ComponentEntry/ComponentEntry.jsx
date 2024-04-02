@@ -16,7 +16,7 @@ import { TextField, Button } from "@mui/material";
  * - label 
  * - value 
  * - fn
- */
+ */ 
 function ComponentEntry({ label, value, fn }) {
 
   const [val, SetVal] = useState(""); 
