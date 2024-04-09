@@ -5,6 +5,7 @@ import NavBar from "../../components/NavBar/NavBar";
 import TopBar from "../../components/TopBar/TopBar";
 import ComponentEntry from '../../components/ComponentEntry/ComponentEntry';
 import ComponentImage from '../../components/ComponentImage/ComponentImage';
+import ComponentSubmit from '../../components/ComponentSubmit/ComponentSubmit';
 
 function InvolvedPage() {
   const [imageData, setImageData] = useState(null);
@@ -24,8 +25,6 @@ function InvolvedPage() {
     convertImageToBase64(img, function(str64) {
       setImageData({
         name: img.name,
-        type: img.type,
-        size: img.size,
         data: str64
       });
     });
@@ -73,6 +72,7 @@ function InvolvedPage() {
               value={imageData}
               fn={handleImageChange}
             />
+            <ComponentSubmit />
           </form>
           </div>
         </div>

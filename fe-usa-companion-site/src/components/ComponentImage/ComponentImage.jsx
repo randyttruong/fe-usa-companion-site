@@ -28,7 +28,7 @@ function ComponentImage({ label, value, fn }) {
   const handleChange = (e) => {
     setSelectedImage(e.target.files[0]);
     console.log(e.target.files[0]);
-    fn(selectedImage);
+    fn(e.target.files[0]);
   }
 
   return (
