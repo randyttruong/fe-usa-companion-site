@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./ComponentImage.css";
 import { useRef } from "react";
 
-/* ComponentEntry()
+/* ComponentImage()
  * This is a component that allows a user to edit a component 
  * on the original website that is an image
  * 
@@ -18,7 +18,6 @@ import { useRef } from "react";
  * - fn
  */
 function ComponentImage({ label, value, fn }) {
-  const [selectedImage, setSelectedImage] = useState(null);
   const hiddenFileInput = useRef(null);
 
   const handleClick = (e) => {
@@ -26,9 +25,14 @@ function ComponentImage({ label, value, fn }) {
   }
 
   const handleChange = (e) => {
-    setSelectedImage(e.target.files[0]);
-    console.log(e.target.files[0]);
-    fn(e.target.files[0]);
+    const selectedImage = e.target.files[0];
+    console.log(selectedImage);
+
+    if (selectedImage && selectedImage.type.startsWith('image/')) {
+      fn(selectedImage);
+    } else {
+      alert('Please select an image file.');
+    }
   }
 
   return (
@@ -45,6 +49,7 @@ function ComponentImage({ label, value, fn }) {
             type="file"
             onChange={handleChange}
             ref={hiddenFileInput}
+            accept="image/*"
             style={{display: "none"}}
           />
 
