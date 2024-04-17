@@ -6,26 +6,23 @@ const app = express();
 app.use(express.json());
 app.use(cors()); 
 
+api_updatehomepage = require("./api/update-homepage.js");
+api_createcomponent = require("./api/create-component.js");
 
+/* 
+ * Adding routes to the Express app 
+ * TODO: Add middleware 
+ */ 
+app.use('/update-homepage', api_updatehomepage);
+app.use("/create-component", api_createcomponent);
 
-app.post('/update-homepage', (req, res) => {
-    const { title, missionText } = req.body;
-
-    const srcCodeDir = '/Users/randytruongentertainment/Projects/fe-usa-companion-site/fe-usa-tsx/fe-usa/src/pages/HomePage.tsx';
-
-
-    let sourceCode = fs.readFileSync(srcCodeDir, 'utf8');
-
-
-    sourceCode = sourceCode.replace(/<Typography variant = "h4".*?<\/Typography>/s, 
-    `<Typography variant = "h4" sx = {{textAlign: 'center', fontWeight: 'bold', marginTop: 5}} > ${title} </Typography>`);
-
-    fs.writeFileSync(srcCodeDir, sourceCode);
-
-
-    res.json({ message: 'Homepage updated successfully' });
-});
+/* 
+ * update-homepage 
+ * 
+ */ 
 
 app.listen(8000, () => {
     console.log('Server running on port 8000');
 });
+
+module.exports = app; 

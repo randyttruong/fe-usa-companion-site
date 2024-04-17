@@ -1,8 +1,10 @@
+// Aiya someone fix this code please. I'd rather not touch it with a ten foot pole ngl
+
 //import { ThemeProvider } from '@mui/material/';
-import { Box, Container, Grid, Typography, Button} from '@mui/material/';
+import { Box, Paper, Container, Grid, Typography, TextField, Button, Divider, MenuItem} from '@mui/material/';
 import Slider from '../components/Slider'
 import { styled } from '@mui/system';
-
+import { Link } from "react-router-dom";
 
 const AboutSection = styled('section')({
     padding: '30px 0',
@@ -30,14 +32,14 @@ const AboutSection = styled('section')({
 
 const HomePage = () => {
 	return (
+
         <>
         <Slider></Slider>
 
             <Container maxWidth = "sm">
-                <Typography variant = "h4" sx = {{textAlign: 'center', fontWeight: 'bold', marginTop: 5}} > nice</Typography>
+                <Typography variant = "h4" sx = {{textAlign: 'center', fontWeight: 'bold', marginTop: 5}} > Our Mission</Typography>
             </Container>
 
-{/* issue is from how paragraph is wrapping div and header elements. only contains styling so move styling */}
             <Container sx={{ maxWidth:'60%', position: 'center'}} maxWidth={false} >
             <p style = {{
 					fontSize: 20,
@@ -87,7 +89,10 @@ const HomePage = () => {
               <AboutImage src="/images/calendar.jpg" alt="About 1" />
             </Box>
             <ButtonWrapper>
-              <Button variant="contained" color="primary" href = "/Calendar">Upcoming Events</Button>
+              <Button variant="contained" color="primary">
+                <MenuItem  onClick={() => window.scrollTo(0, 0)} component={ Link } to="/Calendar"  style={{ fontFamily: "Commissioner", fontSize: '18px', fontWeight: 'bold'}}>Calendar
+                  </MenuItem>
+              </Button>
             </ButtonWrapper>
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -95,7 +100,10 @@ const HomePage = () => {
               <AboutImage src="/images/blog.jpg" alt="About 2" />
             </Box>
             <ButtonWrapper>
-              <Button variant="contained" color="primary" href = "/Blog">Blog</Button>
+              <Button variant="contained" color="primary">
+                <MenuItem onClick={() => window.scrollTo(0, 0)}  component={ Link } to="/Blog" style={{ fontFamily: "Commissioner", fontSize: '18px', fontWeight: 'bold'}}>Blog
+                  </MenuItem>
+              </Button>
             </ButtonWrapper>
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -103,7 +111,10 @@ const HomePage = () => {
               <AboutImage src="/images/get-involved-home.jpg" alt="About 3" />
             </Box>
             <ButtonWrapper>
-              <Button variant="contained" color="primary" href = "/GetInvolved">Get Involved</Button>
+              <Button variant="contained" color="primary">
+                <MenuItem onClick={() => window.scrollTo(0, 0)} component={ Link } to="/GetInvolved" style={{ fontFamily: "Commissioner", fontSize: '18px', fontWeight: 'bold'}} >Get Involved
+                  </MenuItem>
+              </Button>
             </ButtonWrapper>
           </Grid>
         </AboutGrid>

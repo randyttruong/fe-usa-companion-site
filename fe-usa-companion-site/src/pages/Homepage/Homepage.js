@@ -39,7 +39,6 @@ function Homepage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try{ 
       const resp = await fetch("http://localhost:8000/update-homepage", 
       {
         method: "POST",
@@ -49,18 +48,10 @@ function Homepage() {
         body: JSON.stringify({ title, missionText }),
       }); 
 
-      if (resp.ok) { 
-        const data = resp.json();
-        console.log("Successfully updated homepage");
-        console.log(data);
-      } else { 
-        throw new Error("Failed to update homepage"); 
-      }
 
-    } catch (err) { 
-      console.error(err);
-    }
-  }
+      resp.data
+
+
 
     return (
       <>
