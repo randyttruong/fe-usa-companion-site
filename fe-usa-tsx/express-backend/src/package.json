@@ -1,0 +1,22 @@
+{
+  "name": "fe-usa-backend",
+  "version": "1.0.0",
+  "description": "This is the backend for the fe-usa-companion site",
+  "main": "server.js",
+  "scripts": {
+    "test": "test server.js",
+    "start": "nodemon server.js"
+  },
+  "keywords": [
+    "backend",
+    "companion",
+    "website-builder"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.0",
+    "sqlite3": "^5.1.7"
+  }
+}

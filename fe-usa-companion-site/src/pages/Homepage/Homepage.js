@@ -39,19 +39,17 @@ function Homepage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-      const resp = await fetch("http://localhost:8000/update-homepage", 
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ title, missionText }),
-      }); 
+    const resp = await fetch("http://localhost:8000/update-homepage/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ title: title, missionText: missionText }),
+    });
 
-
-      resp.data
-
-
+    const data = await resp.json();
+    console.log(data.message);
+  } 
 
     return (
       <>
