@@ -1,6 +1,7 @@
 import componentTypes from '../../lib/constants/componentTypes.jsx'
 import React, { useState, useEffect } from "react";
 import { ErrorStep } from './ErrorStep.jsx';
+import { NextPrevBar } from '../NextPrevButtons/NextPrevBar.jsx';
 
 function ComponentCardEntry(props) {
   const {
@@ -31,7 +32,14 @@ function ComponentCardEntry(props) {
 }
 
 export function ComponentSelectionForm(props) {
-  const { pageType, prev, next, children } = props
+  const {
+    pageType,
+    prevHandler,
+    nextHandler,
+    values,
+    children
+  } = props
+
   const [formData, setFormData] = useState({
   })
 
@@ -78,6 +86,7 @@ export function ComponentSelectionForm(props) {
             )
           })
         }
+        <NextPrevBar />
       </div>
     </>
   )
