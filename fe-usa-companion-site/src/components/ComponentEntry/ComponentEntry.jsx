@@ -16,12 +16,12 @@ import { TextField, Button } from "@mui/material";
  * - label 
  * - value 
  * - fn
- */ 
+ */
 function ComponentEntry({ label, value, fn }) {
 
-  const [val, SetVal] = useState(""); 
+  const [val, SetVal] = useState("");
 
-  const handleSubmission = (e) => { 
+  const handleSubmission = (e) => {
     SetVal(e.target.value)
     console.log(e.target.value)
     fn(val);

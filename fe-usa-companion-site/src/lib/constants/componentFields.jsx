@@ -1,18 +1,18 @@
 // headerTypes 
 headerTypes = ["h1", "h2", "h3"]
+bodyTypes = ["body1", "body2", "body3"]
 
-componentFields = {  
-  { 
-    componentType: "header",
-    fields: {  
-      "name": "",
+componentFields = [
+  {
+    fields: {
+      "name": "header",
       "description": "",
       "type": 0,
     },
   },
   {
     componentType: "body",
-    fields: {  
+    fields: {
       "name": "",
       "description": "",
       "type": 0,
@@ -20,7 +20,7 @@ componentFields = {
   },
   {
     componentType: "media",
-    fields: {  
+    fields: {
       "name": "",
       "description": "",
       "type": 0,
@@ -28,7 +28,7 @@ componentFields = {
   },
   {
     componentType: "body",
-    fields: {  
+    fields: {
       "name": "",
       "description": "",
       "type": 0,
@@ -36,7 +36,7 @@ componentFields = {
   },
   {
     componentType: "body",
-    fields: {  
+    fields: {
       "name": "",
       "description": "",
       "type": "",
@@ -44,7 +44,7 @@ componentFields = {
   },
   {
     componentType: "body",
-    fields: {  
+    fields: {
       "name": "",
       "description": "",
       "type": "",
@@ -52,10 +52,10 @@ componentFields = {
   },
   {
     componentType: "body",
-    fields: {  
+    fields: {
       "name": "",
       "description": "",
       "type": "",
     },
   },
-}
+]
