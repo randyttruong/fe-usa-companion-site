@@ -1,0 +1,12 @@
+.homepage-editor-container { 
+}
+
+.body { 
+    display: flex; 
+}
+
+.homepage-editor-content { 
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
