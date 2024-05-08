@@ -36,13 +36,13 @@ function InvolvedPage() {
     e.preventDefault();
 
     try{ 
-      const resp = await fetch("http://localhost:8000/update-homepage", 
+      const resp = await fetch("http://localhost:8000/update-involvedpage", 
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ imageData }),
+        body: JSON.stringify({ 'content': imageData }),
       }); 
 
       if (resp.ok) { 
