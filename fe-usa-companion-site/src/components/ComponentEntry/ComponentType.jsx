@@ -1,4 +1,4 @@
-import componentTypes from '../../lib/constants/componentTypes.jsx'
+import { componentTypes } from '../../lib/constants/componentTypes.jsx'
 import React, { useState, useEffect } from "react";
 import { ErrorStep } from './ErrorStep.jsx';
 

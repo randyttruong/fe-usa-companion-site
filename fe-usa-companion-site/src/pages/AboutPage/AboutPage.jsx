@@ -9,14 +9,15 @@ function AboutPage() {
   return (
     <>
       <div className="about-container">
-        <ExistingComponentsTable 
-          pageType={1}
-        />
         <TopBar />
         <Banner />
         <div className="body">
           <NavBar />
-          <div className="about-content"></div>
+          <div className="about-content">
+            <ExistingComponentsTable 
+              pageType={1}
+            />
+          </div>
         </div>
       </div>
     </>

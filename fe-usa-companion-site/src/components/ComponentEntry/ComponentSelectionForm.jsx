@@ -1,18 +1,27 @@
-import componentTypes from '../../lib/constants/componentTypes.jsx'
+import { componentTypes } from '../../lib/constants/componentTypes.jsx'
 import React, { useState, useEffect } from "react";
 import { ErrorStep } from './ErrorStep.jsx';
 import { NextPrevBar } from '../NextPrevButtons/NextPrevBar.jsx';
+import './ComponentSelectionForm.scss'
+import { CloseButtonBar } from './CloseButton.jsx'
 
 function ComponentCardEntry(props) {
   const {
+    id, 
     componentName,
     componentDescription,
+    selectedItem, 
     onClickFunction,
-    isSelected,
   } = props
 
+  const [isSelected, setIsSelected] = useState(false)
+
   const onClickHandler = () => {
-    onClickFunction(componentName)
+    if (selectedItem !== id) {
+      onClickFunction(id)
+    } else { 
+      onClickFunction(-1)
+    }
   }
 
   return (
@@ -20,7 +29,7 @@ function ComponentCardEntry(props) {
       <div
         onClick={onClickHandler}
         className={
-          (isSelected === componentName) ?
+          (selectedItem === id) ?
             'selected-entry' :
             'unselected-entry'}
       >
@@ -34,6 +43,8 @@ function ComponentCardEntry(props) {
 export function ComponentSelectionForm(props) {
   const {
     pageType,
+    toggleOverlay, 
+    toggleOverlayHandler, 
     prevHandler,
     nextHandler,
     values,
@@ -42,21 +53,21 @@ export function ComponentSelectionForm(props) {
 
   const [formData, setFormData] = useState({
   })
-
-  const [selected, setSelected] = useState("");
-
+  const [selected, setSelected] = useState('');            // Is something selected? 
+  const [selectedItem, setSelectedItem] = useState(-1);    // What is the type of this item? 
   const [componentList, setComponentList] = useState([])
+  const [toggleError, setToggleError] = useState(false)
 
   // use useEffect to load up 
   // all of the different possibilities 
   useEffect(() => {
     if (!(pageType in componentTypes)) {
-      return <ErrorStep />;
+      setToggleError(!toggleError)
     } else {
       const entry = componentTypes[pageType]
-      setComponentList(entry)
+      setComponentList(entry.components)
     }
-  })
+  }, [])
 
 
   // TODO: Set onClick event for whenever 
@@ -70,23 +81,37 @@ export function ComponentSelectionForm(props) {
 
   return (
     <>
-      <div className={'component-list-grid'}>
-        {
-          componentList.map((item, key) => {
+      <div className={'overlay-pop-up-menu'}> 
+        <CloseButtonBar 
+          toggleOverlay={toggleOverlay}
+          toggleOverlayHandler={toggleOverlayHandler}
+        /> 
+        <div className={'pop-up-content'}>
+        { toggleError && <ErrorStep /> }
+        { 
+          componentList.map((item, index) => {
             const name = item.name
             const desc = item.description
             return (
               <ComponentCardEntry
-                selected={selected}
-                key={key}
+                id={index}
                 componentName={name}
+                selectedItem={selectedItem}
                 componentDescription={desc}
-                onClickFunction={setSelected}
+                onClickFunction={setSelectedItem}
               />
             )
           })
-        }
-        <NextPrevBar />
+        } 
+        </div>
+        {(selectedItem >= 0) && 
+        <NextPrevBar 
+          prevHandler={prevHandler}
+          nextHandler={nextHandler}
+          first={true}
+          end={false}
+        />
+        } 
       </div>
     </>
   )

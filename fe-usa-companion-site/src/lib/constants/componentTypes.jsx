@@ -2,9 +2,8 @@
  * This is a file that defines all of the different components  
  * that a user can make for any given page. 
  */
-export default componentTypes = {
-  "HomePage": {
-    components: [
+export const componentTypes = [
+  { components: [
       {
         name: "header",
         description: "A header that proudly displays text.",
@@ -21,22 +20,15 @@ export default componentTypes = {
         name: "header",
         description: "A header that proudly displays text.",
       },
-      "body",
-      "media",
-      "form",
     ]
   },
-  "AboutUs": {
+  {
     components: [
-      "profileCard"
+      { name: "profileCard",
+      description: "A cool profile card."}  
     ]
   },
-  "ContactUs": {
-    components: [
-      "image"
-    ]
-  },
-  "GetInvolved": {
+  {
     components: [
       "header",
       "body",
@@ -44,9 +36,14 @@ export default componentTypes = {
       "button",
     ],
   },
-  "Sponsors": {
+  {
+    components: [
+      "image"
+    ]
+  },
+  {
     components: [
       "sponsorCard",
     ]
   }
-}
+]

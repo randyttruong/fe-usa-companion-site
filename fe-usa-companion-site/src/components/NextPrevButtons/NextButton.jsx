@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './Buttons.scss'
 
 export function NextButton(props) {
   const { nextHandler, children } = props

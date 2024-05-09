@@ -1,5 +1,5 @@
-
 import React, { useState } from "react";
+import './Buttons.scss'
 
 export function PrevButton(props) {
   const { prevHandler, children } = props
@@ -10,7 +10,7 @@ export function PrevButton(props) {
         className={'next-prev-button'}
         onClick={prevHandler}
       >
-        Next
+        Prev 
       </div>
     </>
   )

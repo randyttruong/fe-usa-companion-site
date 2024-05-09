@@ -1,8 +1,8 @@
 // headerTypes 
-headerTypes = ["h1", "h2", "h3"]
-bodyTypes = ["body1", "body2", "body3"]
+export const headerTypes = ["h1", "h2", "h3"]
+export const bodyTypes = ["body1", "body2", "body3"]
 
-componentFields = [
+export const componentFields = [
   {
     fields: {
       "name": "header",

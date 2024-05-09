@@ -31,12 +31,24 @@ $click_color: rgba(0, 0, 0, 0.3);
 
 .column-entry {  
   display: flex;
+  flex-direction: column;
   align-content: center;
   justify-content: center;
   text-align: center;
   border-right: solid;
   border-width: 0.5px;
   border-color: $border_color;
+}
+
+.empty-icon {  
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.component-table-entry-empty {  
+  @extend .column-entry;
+  opacity: 0.5;
+  margin-bottom: 3rem;
 }
 
 .column-entry-header {  

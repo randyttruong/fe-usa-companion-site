@@ -9,6 +9,8 @@ export function HeaderForm(props) {
     'content': '',
   })
 
+  const [errorMsg, setErrorMsg] = useState(false)
+
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -16,7 +18,6 @@ export function HeaderForm(props) {
     const desc = e.target.componentDesc
     const content = e.target.content
 
-    const [errorMsg, setErrorMsg] = useState(false)
 
     if (name === ''
       || desc === ''

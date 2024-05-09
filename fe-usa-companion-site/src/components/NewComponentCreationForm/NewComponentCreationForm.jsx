@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FaCirclePlus, FaAnglesDown } from 'react-icons/fa6'
-import './NewComponent.scss'
-import { ComponentSelectionForm } from '../ComponentEntry/ComponentType'
+import './NewComponentCreationForm.scss'
+import { ComponentSelectionForm } from '../ComponentEntry/ComponentSelectionForm'
 import { ComponentDataForm } from '../ComponentEntry/ComponentDataForm'
 import { FormComplete } from '../ComponentEntry/FormComplete'
+import { CloseButtonBar } from '../ComponentEntry/CloseButton.jsx'
 
 /* 
  * WizardForm
  */
 function WizardForm(props) {
-  const { pageType, children } = props
+  const { pageType, toggleOverlay, toggleOverlayHandler, children } = props
 
   // TODO: What form data do we need? 
 
@@ -21,7 +22,7 @@ function WizardForm(props) {
 
   const [formStep, setFormStep] = useState(1);
 
-  const [componentType, setComponentType] = useState(null)
+  const [componentType, setComponentType] = useState(1)
 
 
   const globalFormSubmit = async (e) => {
@@ -33,10 +34,6 @@ function WizardForm(props) {
       "filler": null,
     }
 
-    // TODO: Note that depending on what kind of page 
-    // that we're making this for, need to change 
-    // the data 
-    const resp = await fetch(url, data)
   }
 
   const onNext = () => {
@@ -47,7 +44,7 @@ function WizardForm(props) {
     setFormStep(formStep - 1);
   }
 
-  const renderSteps = () => {
+  const renderSteps = (formStep) => {
     switch (formStep) {
       case 1:
         return (
@@ -55,6 +52,8 @@ function WizardForm(props) {
             pageType={pageType}
             prevHandler={onPrev}
             nextHandler={onNext}
+            toggleOverlay={toggleOverlay}
+            toggleOverlayHandler={toggleOverlayHandler}
             values={formData}
           />)
       case 2:
@@ -75,9 +74,9 @@ function WizardForm(props) {
   }
 
   return (
-    <>
-      {renderSteps()}
-    </>
+      <div className={'pop-up-menu-overlay'}> 
+      {renderSteps(formStep)}
+    </div> 
   )
 }
 
@@ -87,15 +86,15 @@ function WizardForm(props) {
 function AddButton(props) {
   const { toggleVar, toggleHandler } = props
 
-  onClick = (event) => {
+  const onClick = (event) => {
     toggleHandler(!toggleVar)
   }
 
   return (
     <>
       {/* TODO: Add hover and on-click stuff */}
-      <div className={'add-button'}>
-        <FaCirclePlus />
+      <div className={'add-button'} onClick={onClick}>
+        <FaCirclePlus size={16}/>
       </div>
     </>
   )
@@ -116,22 +115,22 @@ function AddButton(props) {
 export function NewComponent(props) {
   const { pageType } = props
 
-  [overlayToggle, setOverlay] = useState(false)
-
-  [componentPageCount, setComponentPageCount] = useState(0)
+  const [overlayToggle, setOverlay] = useState(false)
+  const [componentPageCount, setComponentPageCount] = useState(0)
 
   const toggleHandler = (event) => {
-    setToggle(!toggle)
+    setOverlay(!overlayToggle)
   }
+
   return (
     <>
       <div>
         <AddButton
           toggleVar={overlayToggle}
-          toggleHandler={setOverlay}
+          toggleHandler={toggleHandler}
         />
 
-        {toggle && WizardForm}
+        {overlayToggle && <WizardForm pageType={0} toggleOverlayHandler={toggleHandler}/>}
 
       </div>
     </>

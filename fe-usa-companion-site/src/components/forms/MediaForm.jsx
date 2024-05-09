@@ -6,7 +6,7 @@ const uploadEnum = {
 }
 
 export function MediaForm(props) {
-  const { children } = props
+  const { children, content } = props
   const [uploadType, setUploadType] = useState(0)
 
   return (

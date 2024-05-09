@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactLoading from 'react-loading'
 import { ExistingComponentEntry } from "./ExistingComponentEntry";
 import { FaCirclePlus, FaAnglesDown } from 'react-icons/fa6'
+import { fetchRoutes } from '../../lib/constants/FetchPageURLs'
 import './ComponentsTable.scss'
 
 const offset = 5 
@@ -37,6 +38,7 @@ export function ExistingComponentsTable(props) {
   const [isLoading, setIsLoading] = useState(false)
   const [pageCount, setPageCount] = useState(null)
   const [pageCounter, setPageCounter] = useState(offset)
+  const [isEmpty, setIsEmpty] = useState(false)
 
   useEffect(() => {
     setVisibleComponents(componentsList.slice(0, pageCounter ))
@@ -48,16 +50,7 @@ export function ExistingComponentsTable(props) {
     const fetchInit = async () => {
       try {
         setIsLoading(true)
-
-        switch (pageType) {  
-          case 0: 
-          case 1: 
-          case 2: 
-          case 3: 
-          case 4: 
-        }
-
-        const url1 = `http://localhost:8000/get-homepage-components`
+        const url = fetchRoutes[pageType]
 
         const data = {
           method: "GET", 
@@ -69,7 +62,7 @@ export function ExistingComponentsTable(props) {
 
         // return length of sql table (ie, the number of components 
         // that this page has) in the page count 
-        const resp = await fetch(url1, data)
+        const resp = await fetch(url, data)
         const fullResp = await resp; 
         const parsedResp = await fullResp.json()
 
@@ -81,6 +74,9 @@ export function ExistingComponentsTable(props) {
         setPageCount(Math.ceil(length / 5))
         setIsLoading(false)
 
+        if (length === 0) {  
+          setIsEmpty(true)
+        }
       } catch (err) {
         setIsError(true)
         setIsLoading(false)
@@ -120,8 +116,10 @@ export function ExistingComponentsTable(props) {
         {(isLoading) ?
           (<ReactLoading height={'20%'} width={'20%'} />) :
         (
-          (isError) ?
+          (isError) ? 
             (<p>An error occurred, please refresh the page.</p>) :
+            (isEmpty) ? 
+            (<ExistingComponentEntry start={false} empty={true} />): 
             (
               visibleComponents.map((item, key) => {
                 const name = item.component_name
