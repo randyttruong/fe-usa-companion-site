@@ -1,0 +1,88 @@
+$text_color: black; 
+$border_color: rgba(0, 0, 0, 0.1);
+$click_color: rgba(0, 0, 0, 0.3);
+
+
+.show-more-button {  
+  display: flex; 
+  align-content: center;
+  justify-content: center; 
+  text-align: center;
+  padding: 1rem;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-top: solid; 
+  border-width: 0.5px;
+  border-color: $border-color;
+  &:hover { 
+    background-color: $border_color;
+    transition: 0.8s;
+  }
+  &:click { 
+    background-color: $click_color; 
+    transition: 0.2s;
+  }
+  &:active {  
+    background-color: rgb(0,0,0,0.3);
+    transition: 0.5s;
+  }
+
+}
+
+.column-entry {  
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  border-right: solid;
+  border-width: 0.5px;
+  border-color: $border_color;
+}
+
+.column-entry-header {  
+  @extend .column-entry;
+
+  border-right: none; 
+}
+
+.component-table-entry {
+  display: grid; 
+  width: auto; 
+  height: auto;
+  grid-template-columns: 1fr 1fr 2fr;
+  border-top: solid;
+  border-width: 0.5px;
+  border-color: $border_color;
+  &:hover {  
+    background-color: $border_color;
+    transition: 0.2s;
+  }
+}
+
+.component-table-header{
+  display: grid; 
+  width: auto; 
+  height: auto;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  grid-template-columns: 1fr 1fr 2fr;
+  background-color: white;
+  color: $text_color;
+  font-weight: 600;
+}
+.component-table {  
+  margin: 5%;
+  padding-top: 0rem;
+  width: 75rem;
+  height: auto;
+  background-color: white;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border-width: 1px;
+  border-color: black;
+  display: grid; 
+  box-shadow: 0px 0px 2px 2px rgb(0, 0, 0, .2);
+
+}

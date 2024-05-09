@@ -6,6 +6,7 @@ import TopBar from "../../components/TopBar/TopBar";
 import ComponentEntry from '../../components/ComponentEntry/ComponentEntry';
 import ComponentImage from '../../components/ComponentImage/ComponentImage';
 import ComponentSubmit from '../../components/ComponentSubmit/ComponentSubmit';
+import { ExistingComponentsTable } from '../../components/ExistingComponentsTable/ExistingComponentsTable'
 
 function InvolvedPage() {
   const [imageData, setImageData] = useState(null);
@@ -66,6 +67,9 @@ function InvolvedPage() {
         <div className="body">
           <NavBar />
           <div className="involved-content">
+            <ExistingComponentsTable 
+              pageType={2}
+            /> 
           <form onSubmit={handleSubmit}>
             <ComponentImage
               label="Image"

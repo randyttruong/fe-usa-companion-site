@@ -14,6 +14,7 @@ import NavBar from '../../components/NavBar/NavBar';
 import TopBar from '../../components/TopBar/TopBar';
 import ComponentEntry from '../../components/ComponentEntry/ComponentEntry';
 import ComponentSubmit from '../../components/ComponentSubmit/ComponentSubmit';
+import { ExistingComponentsTable } from '../../components/ExistingComponentsTable/ExistingComponentsTable'
 
 function Homepage() {  
   const [title, setTitle] = useState("");
@@ -59,6 +60,7 @@ function Homepage() {
           <div className='body'> 
           <NavBar />
             <div className="homepage-editor-content">
+            <ExistingComponentsTable pageType={0} />
             <form onSubmit={handleSubmit}>
               <ComponentEntry 
                 label="Title"
