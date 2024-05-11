@@ -1,22 +1,23 @@
 import React from "react";
-import "./AboutPage.css";
+import "./AboutPage.scss";
 import NavBar from "../../components/NavBar/NavBar";
 import Banner from "../../components/Banner/Banner";
 import TopBar from "../../components/TopBar/TopBar";
 import { ExistingComponentsTable } from '../../components/ExistingComponentsTable/ExistingComponentsTable'
+import { NewComponent } from '../../components/NewComponentCreationForm/NewComponentCreationForm'
 
 function AboutPage() {
   return (
     <>
-      <div className="about-container">
-        <TopBar />
-        <Banner />
+      <NavBar />
+      <div className="editor-container">
+        <Banner title={'About Us'}/>
         <div className="body">
-          <NavBar />
           <div className="about-content">
             <ExistingComponentsTable 
               pageType={1}
             />
+            <NewComponent pageType={1} /> 
           </div>
         </div>
       </div>

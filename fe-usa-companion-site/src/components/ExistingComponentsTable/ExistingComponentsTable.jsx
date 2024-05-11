@@ -117,7 +117,7 @@ export function ExistingComponentsTable(props) {
           (<ReactLoading height={'20%'} width={'20%'} />) :
         (
           (isError) ? 
-            (<p>An error occurred, please refresh the page.</p>) :
+            (<ExistingComponentEntry error={true} empty={true}/>) :
             (isEmpty) ? 
             (<ExistingComponentEntry start={false} empty={true} />): 
             (

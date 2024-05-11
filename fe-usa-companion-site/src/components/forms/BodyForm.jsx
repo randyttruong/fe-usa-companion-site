@@ -14,7 +14,7 @@ export function BodyForm(props) {
 
   const [errorMsg, setErrorMsg] = useState(false);
 
-  const submitHandler = (e) => {
+const submitHandler = (e) => {
     e.preventDefault()
 
     const name = e.target.componentName;

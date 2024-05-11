@@ -5,12 +5,15 @@ import { NextPrevBar } from '../NextPrevButtons/NextPrevBar.jsx';
 import './ComponentSelectionForm.scss'
 import { CloseButtonBar } from './CloseButton.jsx'
 
+const debug = 1; 
+
 function ComponentCardEntry(props) {
   const {
     id, 
     componentName,
     componentDescription,
     selectedItem, 
+    setSelectedItemName,
     onClickFunction,
   } = props
 
@@ -19,8 +22,10 @@ function ComponentCardEntry(props) {
   const onClickHandler = () => {
     if (selectedItem !== id) {
       onClickFunction(id)
+      setSelectedItemName(componentName)
     } else { 
       onClickFunction(-1)
+      setSelectedItemName('')
     }
   }
 
@@ -33,6 +38,7 @@ function ComponentCardEntry(props) {
             'selected-entry' :
             'unselected-entry'}
       >
+        <h1> {id}</h1>
         <h1> {componentName} </h1>
         <h2> {componentDescription} </h2>
       </div>
@@ -47,7 +53,8 @@ export function ComponentSelectionForm(props) {
     toggleOverlayHandler, 
     prevHandler,
     nextHandler,
-    values,
+    formValues,
+    formValueHandler, 
     children
   } = props
 
@@ -55,6 +62,7 @@ export function ComponentSelectionForm(props) {
   })
   const [selected, setSelected] = useState('');            // Is something selected? 
   const [selectedItem, setSelectedItem] = useState(-1);    // What is the type of this item? 
+  const [selectedItemName, setSelectedItemName] = useState(-1);    // What is the type of this item? 
   const [componentList, setComponentList] = useState([])
   const [toggleError, setToggleError] = useState(false)
 
@@ -69,15 +77,19 @@ export function ComponentSelectionForm(props) {
     }
   }, [])
 
+  useEffect(() => { 
+    const data = {  
+      'pageType': pageType, 
+      'componentType' : selectedItem,
+      'componentName': selectedItemName,
+      'set' : 1,
+    }
 
-  // TODO: Set onClick event for whenever 
-  // the client selects a particular component 
-  // that they want to use. 
-  //
-  // Expected Behavior: 
-  // - User clicks the component that they want 
-  // - The component that they want is selected (ie, 
-  // outlined)
+    formValueHandler(data)
+  }, [selectedItem])
+
+  useEffect(() => { 
+  }, [])
 
   return (
     <>
@@ -87,6 +99,9 @@ export function ComponentSelectionForm(props) {
           toggleOverlayHandler={toggleOverlayHandler}
         /> 
         <div className={'pop-up-content'}>
+        <div className={'pop-up-dirs'}>
+            Please select a component from below.
+          </div>
         { toggleError && <ErrorStep /> }
         { 
           componentList.map((item, index) => {
@@ -97,12 +112,20 @@ export function ComponentSelectionForm(props) {
                 id={index}
                 componentName={name}
                 selectedItem={selectedItem}
+                setSelectedItemName={setSelectedItemName}
                 componentDescription={desc}
                 onClickFunction={setSelectedItem}
               />
             )
           })
         } 
+        {
+            (debug === 1) && 
+        (<>
+          <p>The page item is {formValues['pageType']}</p>
+          <p>The selected item is {formValues['componentType']}</p>
+        </>)
+      } 
         </div>
         {(selectedItem >= 0) && 
         <NextPrevBar 
@@ -110,6 +133,7 @@ export function ComponentSelectionForm(props) {
           nextHandler={nextHandler}
           first={true}
           end={false}
+
         />
         } 
       </div>

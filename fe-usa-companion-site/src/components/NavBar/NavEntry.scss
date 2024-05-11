@@ -1,0 +1,71 @@
+$text_color: rgba(0,0,0, 0.8);
+
+.NavEntry { 
+    border: none;
+    width: 100%;
+    height: auto;
+    display: grid; 
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    grid-template-columns: 1fr 2fr;
+    align-content: center;
+    background-color: #f8f8f8; /* Light grey background */
+    text-decoration: none;
+    border-radius: 10px; 
+    margin-bottom: 0.5rem;
+}
+
+.icon-container {  
+  height: auto;
+  display: flex; 
+  flex-direction: column; 
+  align-content: center; 
+  justify-content: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: 1rem;
+  color: $text_color; 
+}
+
+.entry-text-container {  
+  width: auto;
+  color: $text_color;
+}
+
+.entry-logo { 
+    border: none;
+    width: 100%;
+    height: auto;
+    display: flex; 
+    justify-content: center;
+    align-content: center;
+    background-color: #f8f8f8; /* Light grey background */
+    text-decoration: none;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+} 
+
+.NavEntry:hover {
+    background-color: rgba(0,0,0,0.3); /* Darker grey on hover */
+    transition: 0.2s;
+}
+
+.NavEntry:active {
+    background-color: gray; /* Darker grey on focus */
+    border: none;
+}
+
+.NavEntry .container {  
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    color: black;
+    padding: 20px;
+    margin: 0;
+    border: none; 
+}
+
+.selected {
+    background-color: slategray; /* Or any other styles you want */
+    border: none; 
+}

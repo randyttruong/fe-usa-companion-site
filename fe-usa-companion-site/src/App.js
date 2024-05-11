@@ -16,7 +16,7 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Test />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/homepageEditor" element={<Homepage />} />
           <Route path="/aboutEditor" element={<AboutPage />} />
           <Route path="/contactEditor" element={<ContactPage />} />

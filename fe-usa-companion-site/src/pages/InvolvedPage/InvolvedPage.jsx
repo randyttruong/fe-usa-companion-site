@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import "./InvolvedPage.css";
+import "./InvolvedPage.scss";
 import Banner from "../../components/Banner/Banner";
 import NavBar from "../../components/NavBar/NavBar";
 import TopBar from "../../components/TopBar/TopBar";
@@ -7,6 +7,7 @@ import ComponentEntry from '../../components/ComponentEntry/ComponentEntry';
 import ComponentImage from '../../components/ComponentImage/ComponentImage';
 import ComponentSubmit from '../../components/ComponentSubmit/ComponentSubmit';
 import { ExistingComponentsTable } from '../../components/ExistingComponentsTable/ExistingComponentsTable'
+import { NewComponent } from '../../components/NewComponentCreationForm/NewComponentCreationForm'
 
 function InvolvedPage() {
   const [imageData, setImageData] = useState(null);
@@ -61,15 +62,17 @@ function InvolvedPage() {
 
   return (
     <>
-      <div className="involved-container">
-        <TopBar />
-        <Banner />
-        <div className="body">
           <NavBar />
+      <div className="editor-container">
+        <Banner title={'Getting Involved'}/>
+        <div className="body">
           <div className="involved-content">
             <ExistingComponentsTable 
               pageType={2}
             /> 
+            <NewComponent 
+              pageType={2}
+              /> 
           <form onSubmit={handleSubmit}>
             <ComponentImage
               label="Image"

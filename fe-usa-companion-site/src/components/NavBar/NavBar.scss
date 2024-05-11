@@ -1,0 +1,28 @@
+.NavBar { 
+    position: fixed; 
+    height: 100vh; /* Full-height: remove this if you want "auto" height */
+    width: 200px; /* Specify a width */
+    z-index: 0; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #f8f8f8; /* Light grey background */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.blankSpace { 
+    height: 20px; 
+}
+
+.content { 
+    margin: 0 auto;
+}
+
+.nav-bar-header {  
+  width: auto; 
+  height: 1rem; 
+  margin-bottom: 0.75rem;
+  padding-left: 0.5rem;
+  color: rgba(0,0,0,0.3);   
+}

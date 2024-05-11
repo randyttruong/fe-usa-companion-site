@@ -7,7 +7,7 @@
   * These are the same enumerations across all of the different 
   * pages. 
   */ 
-export pageTypes = { 
+export const pageTypes = { 
   0: 'Homepage', 
   1: 'About Us', 
   2: 'Getting Involved', 

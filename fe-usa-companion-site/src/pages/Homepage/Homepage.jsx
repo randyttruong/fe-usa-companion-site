@@ -8,13 +8,14 @@
  */ 
 
 import React, { useState, useEffect } from 'react'
-import './Homepage.css'
+import './Homepage.scss'
 import Banner from '../../components/Banner/Banner'
 import NavBar from '../../components/NavBar/NavBar';
 import TopBar from '../../components/TopBar/TopBar';
 import ComponentEntry from '../../components/ComponentEntry/ComponentEntry';
 import ComponentSubmit from '../../components/ComponentSubmit/ComponentSubmit';
 import { ExistingComponentsTable } from '../../components/ExistingComponentsTable/ExistingComponentsTable'
+import { NewComponent } from '../../components/NewComponentCreationForm/NewComponentCreationForm'
 
 function Homepage() {  
   const [title, setTitle] = useState("");
@@ -54,26 +55,13 @@ function Homepage() {
 
     return (
       <>
-        <div className="homepage-editor-container">
-          <TopBar />
-          <Banner />
-          <div className='body'> 
           <NavBar />
+        <div className="editor-container">
+          <Banner title={'Homepage'}/>
+          <div className='body'> 
             <div className="homepage-editor-content">
             <ExistingComponentsTable pageType={0} />
-            <form onSubmit={handleSubmit}>
-              <ComponentEntry 
-                label="Title"
-                value={title} 
-                fn={handleTitleChange}
-              />
-              <ComponentEntry
-                label="Mission Statement Description"
-                value={missionText}
-                fn={handleMissionTextChange}
-              /> 
-              <ComponentSubmit />
-            </form>
+            <NewComponent pageType={0}/> 
             </div>
           </div>
         </div>

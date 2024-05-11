@@ -7,6 +7,9 @@ import './ComponentSelectionForm.scss'
 import { componentTypes } from '../../lib/constants/componentTypes'
 import { componentFields } from '../../lib/constants/componentFields'
 import { ErrorStep } from './ErrorStep'
+import { pageTypes } from '../../lib/constants/PageTypes'
+import { componentsByPages } from '../../lib/constants/ComponentsByPages'
+import { HeaderForm } from '../forms/HeaderForm'
 
 
 export function ComponentDataForm(props) {
@@ -16,7 +19,9 @@ export function ComponentDataForm(props) {
     nextHandler,
     toggleOverlay, 
     toggleOverlayHandler,
-    values,
+    page1Values, 
+    formValues,
+    formValueHandler, 
     children
   } = props
 
@@ -25,23 +30,36 @@ export function ComponentDataForm(props) {
   })
 
   const [toggleError, setToggleError] = useState(false) 
-
-  const [formFields, setFormFields] = useState([])
+  const [formFields, setFormFields] = useState()
+  const [formData, setFormData] = useState({})
 
   useEffect(() => {  
-    if (!(componentType in componentTypes)) { 
+    if (!(page1Values)) {  
       setToggleError(true)
-    } else { 
-      setFormFields(componentFields[componentType]) // TODO: Is this a good system? 
+      return
     }
-    console.log('filler')
+
+    const pageType = page1Values['pageType']
+    const componentType = page1Values['componentName']
+    
+    if (!(pageType in pageTypes)) {  
+      setToggleError(true) 
+      return 
+    }
+
+    const newFormFields = componentsByPages[pageType][componentType]
+    console.log(componentsByPages[pageType][componentType])
+
+
+    setFormFields(newFormFields) // TODO: Is this a good system? 
   }, [])
 
   // For a particular componentType, we just 
   // need to fetch a specific form, the specific 
-  // forms will be listed somewhere else useEffect(() => {
-
-  // }, [])
+  // forms will be listed somewhere else 
+  useEffect(() => {
+    formValueHandler(formData)
+  }, [formData])
 
   return (
     <>
@@ -54,6 +72,14 @@ export function ComponentDataForm(props) {
           toggleError && <ErrorStep /> 
         // forms[componentType] // How do I specify the submission button thing? 
       }
+      { 
+          <div>
+          <div>{page1Values['pageType']}</div>
+          <div>{page1Values['componentName']}</div>
+            {formFields}
+          </div>
+      }
+
       <NextPrevBar 
           prevHandler={prevHandler}
           nextHandler={nextHandler}
@@ -61,7 +87,7 @@ export function ComponentDataForm(props) {
           end={true}
         /> 
         <SubmissionFormBar
-          globalFormData={values}
+          globalFormData={formValues}
           globalFormSubmit={'TODO'}
         />
       </div> 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaCirclePlus, FaAnglesDown } from 'react-icons/fa6'
 import './NewComponentCreationForm.scss'
 import { ComponentSelectionForm } from '../ComponentEntry/ComponentSelectionForm'
@@ -22,6 +22,26 @@ function WizardForm(props) {
 
   const [formStep, setFormStep] = useState(1);
 
+  const [part1Form, setPart1Form] = useState({
+    'pageType': 0,          // should be an integer 
+    'componentType': '',    // should be a string 
+    'set': 0, 
+  })
+
+  const [part2Form, setPart2Form] = useState({
+    'header1': 'null', 
+    'set': 0, 
+  })  
+
+  useEffect(() => {  
+    // TODO: Fetch the headers from the header file 
+  }, [part1Form])
+
+  useEffect(() => {  
+    // TODO: Fetch the headers from the header file 
+
+  }, [part2Form])
+
   const [componentType, setComponentType] = useState(1)
 
 
@@ -33,7 +53,6 @@ function WizardForm(props) {
     const data = {
       "filler": null,
     }
-
   }
 
   const onNext = () => {
@@ -54,7 +73,8 @@ function WizardForm(props) {
             nextHandler={onNext}
             toggleOverlay={toggleOverlay}
             toggleOverlayHandler={toggleOverlayHandler}
-            values={formData}
+            formValues={part1Form}
+            formValueHandler={setPart1Form}
           />)
       case 2:
         return (
@@ -63,7 +83,9 @@ function WizardForm(props) {
             prevHandler={onPrev}
             nextHandler={onNext}
             globalFormSubmit={globalFormSubmit}
-            values={formData}
+            page1Values={part1Form}
+            formValues={part2Form}
+            formValueHandler={setPart2Form}
           />
         )
       default:
@@ -74,7 +96,7 @@ function WizardForm(props) {
   }
 
   return (
-      <div className={'pop-up-menu-overlay'}> 
+    <div className={'pop-up-menu-overlay'}> 
       {renderSteps(formStep)}
     </div> 
   )
@@ -93,12 +115,106 @@ function AddButton(props) {
   return (
     <>
       {/* TODO: Add hover and on-click stuff */}
-      <div className={'add-button'} onClick={onClick}>
-        <FaCirclePlus size={16}/>
+      <div className={'button-container'}> 
+        <div className={'add-button'} onClick={onClick}>
+          Add
+        </div>
       </div>
     </>
   )
 }
+
+
+function EditButton(props) {
+  const { toggleVar, toggleHandler } = props
+
+  const onClick = (event) => {
+    toggleHandler(!toggleVar)
+  }
+
+  // TODO: Add edit component functionality 
+
+  return (
+    <>
+      {/* TODO: Add hover and on-click stuff */}
+      <div className={'button-container'}> 
+        <div className={'add-button'} onClick={onClick}>
+          Edit
+        </div>
+      </div>
+    </>
+  )
+}
+
+function SaveButton(props) {
+  const { toggleVar, toggleHandler } = props
+
+  /* 
+   * TODO:  Add save functionality 
+   */ 
+  const onClick = async (event) => { 
+
+    const url = `http://localhost:8000/update-row` 
+    const data = {  
+      method: 'POST', 
+      headers: { 
+        'Content-Type': 'application/json', 
+      }, 
+      body: {  
+        'filler': null, 
+      }
+    }
+
+    const resp = await fetch(url, data) 
+
+    console.log(resp)
+  }
+
+
+  return (
+    <>
+      {/* TODO: Add hover and on-click stuff */}
+      <div className={'button-container'}> 
+        <div className={'add-button'} onClick={onClick}>
+          Save
+        </div>
+      </div>
+    </>
+  )
+}
+
+function DeleteButton(props) {    
+  const { children } = props 
+
+  const onClick = async (event) => { 
+    const url = `http://localhost:8000/delete-homepage-component/`
+    const data = {  
+      method: 'DELETE', 
+      headers: { 
+        'Content-Type': 'application/json',
+      },
+    }
+
+    const resp = await fetch(url, data) 
+
+    data = await resp.json()
+  }
+
+  // TODO: Add deletion functionality 
+  return ( 
+    <> 
+      <div className={'button-container'}> 
+        <div className={'add-button'} onClick={onClick}>
+          Delete 
+        </div>
+      </div>
+    </> 
+  )
+
+}
+
+
+
 
 /* 
  * NewComponent
@@ -124,14 +240,16 @@ export function NewComponent(props) {
 
   return (
     <>
-      <div>
+      <div className={'new-component-container'}>
         <AddButton
           toggleVar={overlayToggle}
           toggleHandler={toggleHandler}
         />
-
+        <EditButton 
+        /> 
+        <SaveButton
+        />
         {overlayToggle && <WizardForm pageType={0} toggleOverlayHandler={toggleHandler}/>}
-
       </div>
     </>
   )
