@@ -4,18 +4,21 @@ export function SubmissionFormButton(props) {
   const {
     globalFormData,
     globalFormSubmit,
+    nextHandler,
     children
   } = props
 
-  // TODO: This is going to be a large submit button, probably 
-  // need to put into some hooks file 
-  const submitHandler = () => {
+  const submitForm = () => {
     globalFormSubmit()
+    nextHandler()
   }
 
   return (
     <>
-      <button onClick={submitHandler}>Create</button>
+      <button
+        onClick={globalFormSubmit}
+      >Create
+      </button>
     </>
   )
 }

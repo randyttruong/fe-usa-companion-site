@@ -5,7 +5,7 @@ import { FaCirclePlus, FaAnglesDown } from 'react-icons/fa6'
 import { fetchRoutes } from '../../lib/constants/FetchPageURLs'
 import './ComponentsTable.scss'
 
-const offset = 5 
+const offset = 5
 /* 
  * MoreButton 
  *
@@ -33,7 +33,7 @@ export function ExistingComponentsTable(props) {
   } = props
 
   const [componentsList, setComponentsList] = useState([])
-  const [visibleComponents, setVisibleComponents] = useState(["huh"]) 
+  const [visibleComponents, setVisibleComponents] = useState(["huh"])
   const [isError, setIsError] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [pageCount, setPageCount] = useState(null)
@@ -41,7 +41,7 @@ export function ExistingComponentsTable(props) {
   const [isEmpty, setIsEmpty] = useState(false)
 
   useEffect(() => {
-    setVisibleComponents(componentsList.slice(0, pageCounter ))
+    setVisibleComponents(componentsList.slice(0, pageCounter))
   }, [componentsList])
 
 
@@ -53,17 +53,17 @@ export function ExistingComponentsTable(props) {
         const url = fetchRoutes[pageType]
 
         const data = {
-          method: "GET", 
-          headers: { 
+          method: "GET",
+          headers: {
             "Content-Type": "application/json"
-          }, 
+          },
         }
 
 
         // return length of sql table (ie, the number of components 
         // that this page has) in the page count 
         const resp = await fetch(url, data)
-        const fullResp = await resp; 
+        const fullResp = await resp;
         const parsedResp = await fullResp.json()
 
         console.log(parsedResp)
@@ -74,7 +74,7 @@ export function ExistingComponentsTable(props) {
         setPageCount(Math.ceil(length / 5))
         setIsLoading(false)
 
-        if (length === 0) {  
+        if (length === 0) {
           setIsEmpty(true)
         }
       } catch (err) {
@@ -93,7 +93,7 @@ export function ExistingComponentsTable(props) {
       setIsLoading(true)
       setPageCounter((pageCounter) => pageCounter + 5)
       console.log('This is counter:', pageCounter)
-      setVisibleComponents(visibleComponents.concat(componentsList.slice(pageCounter, pageCounter+5)))
+      setVisibleComponents(visibleComponents.concat(componentsList.slice(pageCounter, pageCounter + 5)))
       setIsLoading(false)
     } catch (err) {
       setIsError(true)
@@ -104,6 +104,9 @@ export function ExistingComponentsTable(props) {
 
   return (
     <>
+      <div>
+        {`length: ${componentsList.length}`}
+      </div>
       <div className={'component-table'}>
         <ExistingComponentEntry
           className={'table-entry'}
@@ -115,38 +118,38 @@ export function ExistingComponentsTable(props) {
 
         {(isLoading) ?
           (<ReactLoading height={'20%'} width={'20%'} />) :
-        (
-          (isError) ? 
-            (<ExistingComponentEntry error={true} empty={true}/>) :
-            (isEmpty) ? 
-            (<ExistingComponentEntry start={false} empty={true} />): 
-            (
-              visibleComponents.map((item, key) => {
-                const name = item.component_name
-                const desc = item.data
-                const type = item.component_type
+          (
+            (isError) ?
+              (<ExistingComponentEntry error={true} empty={true} />) :
+              (isEmpty) ?
+                (<ExistingComponentEntry start={false} empty={true} />) :
+                (
+                  visibleComponents.map((item, key) => {
+                    const name = item.component_name
+                    const desc = item.data
+                    const type = item.component_type
 
-                return (
-                  <ExistingComponentEntry
-                    className={'table-entry'}
-                    name={name}
-                    desc={desc}
-                    type={type}
-                    start={false }
-                    key={key}
-                  />
+                    return (
+                      <ExistingComponentEntry
+                        className={'table-entry'}
+                        name={name}
+                        desc={desc}
+                        type={type}
+                        start={false}
+                        key={key}
+                      />
+                    )
+                  })
                 )
-              })
-            )
-        )} 
-      {
-        (pageCounter < pageCount * 5) ?
-          (< ShowMoreComponentsButton
-            fetchHandler={fetchMoreComponents}
-          />) :
-          (<>
-          </>)
-      }
+          )}
+        {
+          (pageCounter < pageCount * 5) ?
+            (< ShowMoreComponentsButton
+              fetchHandler={fetchMoreComponents}
+            />) :
+            (<>
+            </>)
+        }
       </div>
     </>
   )

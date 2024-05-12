@@ -1,38 +1,46 @@
-import { HeaderForm } from '../../components/forms/HeaderForm'
-import { CardForm } from '../../components/forms/CardForm'
-import { BodyForm } from '../../components/forms/BodyForm'
-import { MediaForm } from '../../components/forms/MediaForm'
+/* 
+ * componentsByPages.jsx
+ *
+ * This is a file that maps each of the different 
+ * comopnents for each page (enumerated from 
+ * 0-3) to their corresponding forms. 
+ */
 
-// TODO: Make fields for this? 
-const headerFields = { 
-  'name': 'text',
-  'description': 'text', 
-  'content': 'text', 
-  'style': [1,2,3],
-}
+import { HeaderForm } from '../../components/Forms/HeaderForm'
+import { CardForm } from '../../components/Forms/CardForm'
+import { BodyForm } from '../../components/Forms/BodyForm'
+import { MediaForm } from '../../components/Forms/MediaForm'
 
-const bodyFields = { 
-  'name': 'text', 
-  'description': 'text', 
-  'content': 'text', 
-  'style': [1,2,3]
-}
+/*
+ * NOTE: 
+ * This is the following format for the 
+ * pageType enum: 
+ * ---------------
+ * pageTypes = {  
+ *  0: 'Homepage', 
+ *  1: 'About Us', 
+ *  2: 'Getting Involved', 
+ *  3: 'Contact Us', 
+ *  4: 'Blog', 
+ * }
+ */
 
 export const componentsByPages = [
   {
     'header': <HeaderForm />,
-    'body': <BodyForm/> ,
-  },
-  { 
-    'header': <HeaderForm/>, 
-    'body': <BodyForm/>, 
+    'body': <BodyForm />,
   },
   {
-    'header': <HeaderForm/>, 
-    'body': <BodyForm/>, 
+    'header': <HeaderForm />,
+    'body': <BodyForm />,
+    'profileCard': <CardForm />
   },
   {
-    'header': <HeaderForm/>, 
-    'body': <BodyForm/>,
+    'header': <HeaderForm />,
+    'body': <BodyForm />,
+  },
+  {
+    'header': <HeaderForm />,
+    'body': <BodyForm />,
   },
 ]

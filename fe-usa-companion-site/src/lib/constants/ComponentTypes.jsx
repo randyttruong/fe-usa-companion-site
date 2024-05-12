@@ -3,7 +3,8 @@
  * that a user can make for any given page. 
  */
 export const componentTypes = [
-  { components: [
+  {
+    components: [
       {
         name: "header",
         description: "A header that proudly displays text.",
@@ -12,20 +13,14 @@ export const componentTypes = [
         name: "body",
         description: "A header that proudly displays text.",
       },
-      {
-        name: "header",
-        description: "A header that proudly displays text.",
-      },
-      {
-        name: "header",
-        description: "A header that proudly displays text.",
-      },
     ]
   },
   {
     components: [
-      { name: "profileCard",
-      description: "A cool profile card."}  
+      {
+        name: "profileCard",
+        description: "A cool profile card."
+      }
     ]
   },
   {

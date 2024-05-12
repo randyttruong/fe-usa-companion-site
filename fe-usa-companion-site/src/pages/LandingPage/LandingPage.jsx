@@ -11,7 +11,7 @@ function LandingPage() {
 
         <Banner />
         <div className="body">
-          <NavBar/>
+          <NavBar />
           <div className="landing-content">
             <h1> Welcome to the FE USA Companion Site!</h1>
             <p>

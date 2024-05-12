@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { AutoForm } from "./GenerateForm";
+import data from '../../lib/constants/Forms/Header.json'
 
 export function HeaderForm(props) {
-  const { setComponentData, children } = props
+  const {
+    setComponentData,
+    children
+  } = props
 
   const [formData, setFormData] = useState({
     'componentName': '',
@@ -37,34 +42,9 @@ export function HeaderForm(props) {
 
   return (
     <>
-      <form>
-        <label>
-          <input
-            placeholder={'Header Name'}
-            type={'text'}
-            name={'componentName'}
-          />
-        </label>
-        <label>
-          <input
-            placeholder={'What does this component do?'}
-            type={'componentDesc'}
-          />
-        </label>
-        <label>
-          <input
-            placeholder={'What do you want your header to say?'}
-            type={'text'}
-            name={'content'}
-          />
-        </label>
-        <button
-          type={'submit'}
-          onClick={handleSubmit}
-        >
-          Create Header
-        </button>
-      </form>
+      <AutoForm
+        jsonData={data}
+      />
     </>
   )
 }

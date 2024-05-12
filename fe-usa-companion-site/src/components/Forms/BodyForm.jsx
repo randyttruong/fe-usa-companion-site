@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { AutoForm } from "./GenerateForm";
+import data from '../../lib/constants/Forms/Body.json'
+
 
 /* 
  * TODO: Styling
@@ -14,7 +17,7 @@ export function BodyForm(props) {
 
   const [errorMsg, setErrorMsg] = useState(false);
 
-const submitHandler = (e) => {
+  const submitHandler = (e) => {
     e.preventDefault()
 
     const name = e.target.componentName;
@@ -39,34 +42,9 @@ const submitHandler = (e) => {
 
   return (
     <>
-      <form>
-        <label>
-          <input
-            placeholder={'Body Name'}
-            type={'text'}
-            name={'componentName'}
-          />
-        </label>
-        <label>
-          <input
-            placeholder={'What does this paragraph do?'}
-            type={'componentDesc'}
-          />
-        </label>
-        <label>
-          <input
-            placeholder={'What do you want your paragraph to say?'}
-            type={'text'}
-            name={'content'}
-          />
-        </label>
-        <button
-          type={'submit'}
-          onClick={submitHandler}
-        >
-          Create Body
-        </button>
-      </form>
+      <AutoForm
+        jsonData={data}
+      />
     </>
   )
 }

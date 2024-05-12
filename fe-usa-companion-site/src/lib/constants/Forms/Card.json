@@ -1,0 +1,21 @@
+{
+  "formId": "CardForm",
+  "sections": [
+    {
+      "sectionId": "Card Information",
+      "inputs": [
+        { "inputId": "CardName", "label": "Name", "type": "text" },
+        { "inputId": "CardType", "label": "Type", "type": "dropdown", "options" : ["Card 1", "Card 2", "Card 3"]},
+        { "inputId": "CardDescription", "label": "Description", "type": "text" }
+      ]
+    },
+    {
+      "sectionId": "Card Content",
+      "inputs": [
+        { "inputId": "Card Heading", "label": "Content", "type": "text" },
+        { "inputId": "Card Description", "label": "Content", "type": "text" }
+      ]
+    }
+  ]
+}
+

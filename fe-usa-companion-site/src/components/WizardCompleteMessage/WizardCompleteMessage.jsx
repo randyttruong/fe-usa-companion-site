@@ -1,47 +1,47 @@
 import React from "react";
-import './ComponentSelectionForm.scss'
+import '../AddFormWizardSegments/AddFormParts.scss'
 import '../NextPrevButtons/Buttons.scss'
 import { FaCircleCheck } from "react-icons/fa6";
 
-function FancyCloseButton(props) {   
-  const {  
-    toggleOverlay, 
-    toggleOverlayHandler, 
-  } = props 
+function FancyCloseButton(props) {
+  const {
+    toggleOverlay,
+    toggleOverlayHandler,
+  } = props
 
-  return (  
-    <> 
-      <div 
+  return (
+    <>
+      <div
         className={'next-prev-button'}
         onClick={toggleOverlayHandler}
-      > 
-        Close 
+      >
+        Close
       </div>
-    </> 
+    </>
   )
 }
 
 export function FormComplete(props) {
-  const { 
-    toggleOverlay, 
-    toggleOverlayHandler, 
-    children 
+  const {
+    toggleOverlay,
+    toggleOverlayHandler,
+    children
   } = props
 
   return (
     <>
       <div className={'overlay-pop-up-menu'}>
-        <div className={'overlay-check'}> 
-          <FaCircleCheck  size={64}/> 
+        <div className={'overlay-check'}>
+          <FaCircleCheck size={64} />
         </div>
         <div>
           Your component was successfully created.
           Relaunch the website to see the effect.
-        </div> 
+        </div>
         <div className={'fancy-close-bar'}>
-          <FancyCloseButton 
+          <FancyCloseButton
             toggleOverlayHandler={toggleOverlayHandler}
-          /> 
+          />
         </div>
       </div>
     </>

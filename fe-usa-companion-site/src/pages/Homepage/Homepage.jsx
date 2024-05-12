@@ -5,19 +5,16 @@
  * 
  * TODO: 
  * - Be able to add + delete components? 
- */ 
+ */
 
 import React, { useState, useEffect } from 'react'
 import './Homepage.scss'
 import Banner from '../../components/Banner/Banner'
 import NavBar from '../../components/NavBar/NavBar';
-import TopBar from '../../components/TopBar/TopBar';
-import ComponentEntry from '../../components/ComponentEntry/ComponentEntry';
-import ComponentSubmit from '../../components/ComponentSubmit/ComponentSubmit';
 import { ExistingComponentsTable } from '../../components/ExistingComponentsTable/ExistingComponentsTable'
-import { NewComponent } from '../../components/NewComponentCreationForm/NewComponentCreationForm'
+import { AddComponentButton } from '../../components/AddComponentButton/AddComponentButton'
 
-function Homepage() {  
+function Homepage() {
   const [title, setTitle] = useState("");
   const [missionText, setMissionText] = useState("");
 
@@ -32,7 +29,7 @@ function Homepage() {
   // handleMissionTextChange()
   // Helper function for setting the 
   // description of the homepage 
-  const handleMissionTextChange = (str) => { 
+  const handleMissionTextChange = (str) => {
     setMissionText(str);
   }
 
@@ -51,22 +48,22 @@ function Homepage() {
 
     const data = await resp.json();
     console.log(data.message);
-  } 
+  }
 
-    return (
-      <>
-          <NavBar />
-        <div className="editor-container">
-          <Banner title={'Homepage'}/>
-          <div className='body'> 
-            <div className="homepage-editor-content">
+  return (
+    <>
+      <NavBar />
+      <div className="editor-container">
+        <Banner title={'Homepage'} />
+        <div className='body'>
+          <div className="homepage-editor-content">
             <ExistingComponentsTable pageType={0} />
-            <NewComponent pageType={0}/> 
-            </div>
+            <AddComponentButton pageType={0} />
           </div>
         </div>
-      </>
-    );
+      </div>
+    </>
+  );
 };
 
 export default Homepage;

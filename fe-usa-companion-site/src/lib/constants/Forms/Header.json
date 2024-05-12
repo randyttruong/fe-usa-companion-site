@@ -1,0 +1,20 @@
+{
+  "formId": "HeaderForm",
+  "sections": [
+    {
+      "sectionId": "Header Information",
+      "inputs": [
+        { "inputId": "HeaderName", "label": "Name", "type": "text" },
+        { "inputId": "HeaderType", "label": "Type", "type": "dropdown", "options" : ["Header 1", "Header 2", "Header 3"]},
+        { "inputId": "HeaderDescription", "label": "Description", "type": "text" }
+      ]
+    },
+    {
+      "sectionId": "Header Content",
+      "inputs": [
+        { "inputId": "HeaderContent", "label": "Content", "type": "text" }
+      ]
+    }
+  ]
+}
+

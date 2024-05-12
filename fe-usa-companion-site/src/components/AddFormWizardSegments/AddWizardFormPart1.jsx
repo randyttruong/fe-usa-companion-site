@@ -1,18 +1,19 @@
-import { componentTypes } from '../../lib/constants/componentTypes.jsx'
 import React, { useState, useEffect } from "react";
-import { ErrorStep } from './ErrorStep.jsx';
+import { ErrorStep } from "../WizardErrorMessage/WizardErrorMessage.jsx";
 import { NextPrevBar } from '../NextPrevButtons/NextPrevBar.jsx';
-import './ComponentSelectionForm.scss'
-import { CloseButtonBar } from './CloseButton.jsx'
+import { CloseButtonBar } from '../WizardCloseButton/CloseButton.jsx';
+import { componentTypes } from '../../lib/constants/ComponentTypes.jsx'
 
-const debug = 1; 
+import './AddFormParts.scss'
+
+const debug = 1;
 
 function ComponentCardEntry(props) {
   const {
-    id, 
+    id,
     componentName,
     componentDescription,
-    selectedItem, 
+    selectedItem,
     setSelectedItemName,
     onClickFunction,
   } = props
@@ -23,7 +24,7 @@ function ComponentCardEntry(props) {
     if (selectedItem !== id) {
       onClickFunction(id)
       setSelectedItemName(componentName)
-    } else { 
+    } else {
       onClickFunction(-1)
       setSelectedItemName('')
     }
@@ -49,12 +50,12 @@ function ComponentCardEntry(props) {
 export function ComponentSelectionForm(props) {
   const {
     pageType,
-    toggleOverlay, 
-    toggleOverlayHandler, 
+    toggleOverlay,
+    toggleOverlayHandler,
     prevHandler,
     nextHandler,
     formValues,
-    formValueHandler, 
+    formValueHandler,
     children
   } = props
 
@@ -77,65 +78,67 @@ export function ComponentSelectionForm(props) {
     }
   }, [])
 
-  useEffect(() => { 
-    const data = {  
-      'pageType': pageType, 
-      'componentType' : selectedItem,
+  useEffect(() => {
+    const data = {
+      'pageType': pageType,
+      'componentType': selectedItem,
       'componentName': selectedItemName,
-      'set' : 1,
+      'set': 1,
     }
 
     formValueHandler(data)
   }, [selectedItem])
 
-  useEffect(() => { 
+  useEffect(() => {
   }, [])
 
   return (
     <>
-      <div className={'overlay-pop-up-menu'}> 
-        <CloseButtonBar 
+      <div className={'overlay-pop-up-menu'}>
+        <CloseButtonBar
           toggleOverlay={toggleOverlay}
           toggleOverlayHandler={toggleOverlayHandler}
-        /> 
+        />
         <div className={'pop-up-content'}>
-        <div className={'pop-up-dirs'}>
+          <div className={'pop-up-dirs'}>
             Please select a component from below.
           </div>
-        { toggleError && <ErrorStep /> }
-        { 
-          componentList.map((item, index) => {
-            const name = item.name
-            const desc = item.description
-            return (
-              <ComponentCardEntry
-                id={index}
-                componentName={name}
-                selectedItem={selectedItem}
-                setSelectedItemName={setSelectedItemName}
-                componentDescription={desc}
-                onClickFunction={setSelectedItem}
-              />
-            )
-          })
-        } 
-        {
-            (debug === 1) && 
-        (<>
-          <p>The page item is {formValues['pageType']}</p>
-          <p>The selected item is {formValues['componentType']}</p>
-        </>)
-      } 
+          {toggleError && <ErrorStep />}
+          {
+            componentList.map((item, index) => {
+              const name = item.name
+              const desc = item.description
+              return (
+                <ComponentCardEntry
+                  id={index}
+                  componentName={name}
+                  selectedItem={selectedItem}
+                  setSelectedItemName={setSelectedItemName}
+                  componentDescription={desc}
+                  onClickFunction={setSelectedItem}
+                />
+              )
+            })
+          }
+          {
+            (debug === 1) &&
+            (<>
+              <p>The page item is {formValues['pageType']}</p>
+              <p>The selected item is {formValues['componentType']}</p>
+            </>)
+          }
         </div>
-        {(selectedItem >= 0) && 
-        <NextPrevBar 
-          prevHandler={prevHandler}
-          nextHandler={nextHandler}
-          first={true}
-          end={false}
+        {
+          (selectedItem >= 0)
+          &&
+          <NextPrevBar
+            prevHandler={prevHandler}
+            nextHandler={nextHandler}
+            first={true}
+            end={false}
 
-        />
-        } 
+          />
+        }
       </div>
     </>
   )

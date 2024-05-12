@@ -1,16 +1,14 @@
-import React from 'react' 
+import React from 'react'
 import { ExistingComponentsTable } from '../components/ExistingComponentsTable/ExistingComponentsTable'
-import { NewComponent } from '../components/NewComponentCreationForm/NewComponentCreationForm'
+import { AddComponentButton } from '../components/AddComponentButton/AddComponentButton'
 
-export default function Test() {  
-  return(  
-    <> 
+export default function Test() {
+  return (
+    <>
       <div>
-      <ExistingComponentsTable 
-        pageType={0}
-      /> 
-      <NewComponent /> 
-      </div> 
-    </> 
+        <ExistingComponentsTable pageType={0} />
+        <AddComponentButton pageType={0} />
+      </div>
+    </>
   )
 }

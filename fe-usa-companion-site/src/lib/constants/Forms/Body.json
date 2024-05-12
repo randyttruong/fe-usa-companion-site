@@ -1,0 +1,20 @@
+{
+  "formId": "BodyForm",
+  "sections": [
+    {
+      "sectionId": "Body Information",
+      "inputs": [
+        { "inputId": "BodyName", "label": "Name", "type": "text" },
+        { "inputId": "BodyType", "label": "Type", "type": "dropdown", "options" : ["Body 1", "Body 2", "Body 3"]},
+        { "inputId": "BodyDescription", "label": "Description", "type": "text" }
+      ]
+    },
+    {
+      "sectionId": "Body Content",
+      "inputs": [
+        { "inputId": "BodyContent", "label": "Content of Body", "type": "text" }
+      ]
+    }
+  ]
+}
+

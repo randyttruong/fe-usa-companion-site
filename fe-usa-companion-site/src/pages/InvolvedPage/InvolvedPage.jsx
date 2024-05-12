@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react'
 import "./InvolvedPage.scss";
 import Banner from "../../components/Banner/Banner";
 import NavBar from "../../components/NavBar/NavBar";
-import TopBar from "../../components/TopBar/TopBar";
-import ComponentEntry from '../../components/ComponentEntry/ComponentEntry';
 import ComponentImage from '../../components/ComponentImage/ComponentImage';
 import ComponentSubmit from '../../components/ComponentSubmit/ComponentSubmit';
 import { ExistingComponentsTable } from '../../components/ExistingComponentsTable/ExistingComponentsTable'
-import { NewComponent } from '../../components/NewComponentCreationForm/NewComponentCreationForm'
+import { AddComponentButton } from '../../components/AddComponentButton/AddComponentButton';
 
 function InvolvedPage() {
   const [imageData, setImageData] = useState(null);
@@ -37,50 +35,46 @@ function InvolvedPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try{ 
-      const resp = await fetch("http://localhost:8000/update-homepage", 
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ imageData }),
-      }); 
+    try {
+      const resp = await fetch("http://localhost:8000/update-homepage",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ imageData }),
+        });
 
-      if (resp.ok) { 
+      if (resp.ok) {
         const data = resp.json();
         console.log("Successfully updated involvedpage");
         console.log(data);
-      } else { 
-        throw new Error("Failed to update involvedpage"); 
+      } else {
+        throw new Error("Failed to update involvedpage");
       }
 
-    } catch (err) { 
+    } catch (err) {
       console.error(err);
     }
   }
 
   return (
     <>
-          <NavBar />
+      <NavBar />
       <div className="editor-container">
-        <Banner title={'Getting Involved'}/>
+        <Banner title={'Getting Involved'} />
         <div className="body">
           <div className="involved-content">
-            <ExistingComponentsTable 
-              pageType={2}
-            /> 
-            <NewComponent 
-              pageType={2}
-              /> 
-          <form onSubmit={handleSubmit}>
-            <ComponentImage
-              label="Image"
-              value={imageData}
-              fn={handleImageChange}
-            />
-            <ComponentSubmit />
-          </form>
+            <ExistingComponentsTable pageType={2} />
+            <AddComponentButton pageType={2} />
+            <form onSubmit={handleSubmit}>
+              <ComponentImage
+                label="Image"
+                value={imageData}
+                fn={handleImageChange}
+              />
+              <ComponentSubmit />
+            </form>
           </div>
         </div>
       </div>

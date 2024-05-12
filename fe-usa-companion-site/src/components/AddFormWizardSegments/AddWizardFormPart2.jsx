@@ -1,27 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { forms } from "../../lib/constants/forms";
-import { SubmissionFormBar } from "../SubmissionFormComponents/SubmissionFormBar";
-import { CloseButtonBar } from './CloseButton'
+import { CloseButtonBar } from "../WizardCloseButton/CloseButton";
 import { NextPrevBar } from '../NextPrevButtons/NextPrevBar'
-import './ComponentSelectionForm.scss'
-import { componentTypes } from '../../lib/constants/componentTypes'
-import { componentFields } from '../../lib/constants/componentFields'
-import { ErrorStep } from './ErrorStep'
+import { ErrorStep } from "../WizardErrorMessage/WizardErrorMessage";
 import { pageTypes } from '../../lib/constants/PageTypes'
 import { componentsByPages } from '../../lib/constants/ComponentsByPages'
-import { HeaderForm } from '../forms/HeaderForm'
 
+import './AddFormParts.scss'
 
 export function ComponentDataForm(props) {
   const {
     componentType,
     prevHandler,
     nextHandler,
-    toggleOverlay, 
+    toggleOverlay,
     toggleOverlayHandler,
-    page1Values, 
+    page1Values,
     formValues,
-    formValueHandler, 
+    formValueHandler,
     children
   } = props
 
@@ -29,22 +24,24 @@ export function ComponentDataForm(props) {
     "fields": "none",
   })
 
-  const [toggleError, setToggleError] = useState(false) 
+  const [toggleError, setToggleError] = useState(false)
   const [formFields, setFormFields] = useState()
   const [formData, setFormData] = useState({})
+  const [finished, setFinished] = useState(false)
 
-  useEffect(() => {  
-    if (!(page1Values)) {  
+  useEffect(() => {
+    console.log("These are page1 values", page1Values)
+    if (!(page1Values)) {
       setToggleError(true)
       return
     }
 
     const pageType = page1Values['pageType']
     const componentType = page1Values['componentName']
-    
-    if (!(pageType in pageTypes)) {  
-      setToggleError(true) 
-      return 
+
+    if (!(pageType in pageTypes)) {
+      setToggleError(true)
+      return
     }
 
     const newFormFields = componentsByPages[pageType][componentType]
@@ -61,36 +58,55 @@ export function ComponentDataForm(props) {
     formValueHandler(formData)
   }, [formData])
 
+  useEffect(() => {
+    if (finished === true) {
+      nextHandler()
+    }
+  }, [setFinished])
+
+  const globalFormSubmit = async () => {
+    if (!formData) {
+      return (<ErrorStep />)
+    }
+
+    // TODO: Write the route for sending new row to 
+    // database. 
+    const url = `http://localhost:8000`
+    const data = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: {}
+    }
+
+    setFinished(true)
+  }
+
   return (
     <>
-      <div className={'overlay-pop-up-menu'}> 
-        <CloseButtonBar 
+      <div className={'overlay-pop-up-menu'}>
+        <CloseButtonBar
           toggleOverlay={toggleOverlay}
           toggleOverlayHandler={toggleOverlayHandler}
-          /> 
-      { 
-          toggleError && <ErrorStep /> 
-        // forms[componentType] // How do I specify the submission button thing? 
-      }
-      { 
+        />
+        {
+          toggleError && <ErrorStep />
+          // forms[componentType] // How do I specify the submission button thing? 
+        }
+        {
           <div>
-          <div>{page1Values['pageType']}</div>
-          <div>{page1Values['componentName']}</div>
             {formFields}
           </div>
-      }
+        }
 
-      <NextPrevBar 
+        <NextPrevBar
           prevHandler={prevHandler}
           nextHandler={nextHandler}
           first={false}
           end={true}
-        /> 
-        <SubmissionFormBar
-          globalFormData={formValues}
-          globalFormSubmit={'TODO'}
         />
-      </div> 
+      </div>
     </>
   )
 }
