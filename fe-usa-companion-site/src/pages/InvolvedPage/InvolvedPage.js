@@ -33,10 +33,11 @@ function InvolvedPage() {
   // handleSubmit
   // Helper function for sending form data to the API
   const handleSubmit = async (e) => {
+    console.log(imageData);
     e.preventDefault();
 
     try{ 
-      const resp = await fetch("http://localhost:8000/update-homepage", 
+      const resp = await fetch("http://localhost:8000/update-involvedpage", 
       {
         method: "POST",
         headers: {

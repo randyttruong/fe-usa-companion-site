@@ -130,3 +130,38 @@ ${data}
 
   return 0;
 } 
+
+async function createImage(compData) {
+  const { data } = compData;
+  const binaryData = Buffer.from(data, 'base64');
+
+  const params = ["test", "image", binaryData];
+
+  try {
+    const resp = await new Promise((resolve, reject) => { 
+      db.run(insertQuery, params, (err) => {
+        if (err) {
+          reject(err) 
+        } else {
+          resolve() 
+        }
+      })
+    }); 
+
+    const resp2 = await new Promise((resolve, reject) => { 
+      db.all(sanity, (err, rows) => {  
+        if (err) { 
+          reject(err)
+        } else {  
+          resolve(rows)
+        }
+      }) 
+    })
+
+    console.log(resp2); 
+
+  } catch (err) {
+    console.log(err); 
+
+  }
+}
