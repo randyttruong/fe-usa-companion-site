@@ -32,7 +32,7 @@ async function insertItem(params) {
 
 
   try {
-    const resp1 = await db.run(insertQuery, , (err) => {  
+    const resp1 = await db.run(insertQuery, (err) => {  
       if (err) { reject(err) } 
       else { resolve() }
     })
@@ -47,7 +47,7 @@ async function insertItem(params) {
 async function sanityCheck() {  
   const resp = await new Promise((resolve, reject) => { 
     db.all(sanity, (err, rows) => { 
-      if (err) { reject(err) A } 
+      if (err) { reject(err)  } 
       else { resolve(rows) }
     })
   })
