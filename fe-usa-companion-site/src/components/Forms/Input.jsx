@@ -3,10 +3,16 @@ import './Form.scss'
 
 export function Input(props) {
   const {
+    inputId,
+    sectionId, 
     header,
-
-    val,
+    handleInputChange, 
+    children,
   } = props
+
+  const inputChangeHandler = (e) => {  
+    handleInputChange(sectionId, inputId, e.target.value)
+  }
 
   return (
     <>
@@ -17,7 +23,7 @@ export function Input(props) {
         <input
           className={'form-input-body'}
           placeholder={'Type here'}
-          val={val}
+          onChange={inputChangeHandler}
         >
         </input>
       </div>

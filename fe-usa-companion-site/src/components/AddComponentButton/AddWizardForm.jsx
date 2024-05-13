@@ -25,6 +25,11 @@ export function WizardForm(props) {
 
   const [part2Form, setPart2Form] = useState({})
 
+  useEffect(() => { 
+    // console.log("part2Form changed!")
+    // console.log(part2Form)
+  }, [part2Form])
+
   // TODO: This is for filling out the different fields 
   const handleInputChange = (sectionId, inputId, value) => {
     const updateSection = {

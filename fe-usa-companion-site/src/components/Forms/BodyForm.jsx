@@ -7,7 +7,12 @@ import data from '../../lib/constants/Forms/Body.json'
  * TODO: Styling
   */
 export function BodyForm(props) {
-  const { setComponentData, children } = props
+  const { 
+    setComponentData, 
+    setPage2Values, 
+    nextHandler, 
+    children 
+  } = props
 
   const [formData, setFormData] = useState({
     'componentName': '',
@@ -44,6 +49,8 @@ export function BodyForm(props) {
     <>
       <AutoForm
         jsonData={data}
+        setPage2Values={setPage2Values}
+
       />
     </>
   )

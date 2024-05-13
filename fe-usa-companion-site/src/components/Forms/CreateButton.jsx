@@ -10,6 +10,7 @@ export function CreateButton(props) {
     <>
       <button
         className={'create-button'}
+        onClick={formSubmitHandler}
       >
         Create
       </button>

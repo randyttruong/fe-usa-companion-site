@@ -1,20 +1,39 @@
 import { Input } from "./Input";
 import { Form } from './Form'
 import { DropDownMenu } from "./DropDownMenu";
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FormSection } from './FormSection'
 import { CreateButton } from "./CreateButton";
 
 export function AutoForm(props) {
   const {
     jsonData,
-    handleInputChange,
     children,
+    setPage2Values, 
+    setFinished, 
   } = props
 
-  const [formFieldValues, setFormFieldValues] = useState({
-    'default': null,
-  })
+  const [ formValues, setFormValues ] = useState({}) 
+
+  const handleInputChange = (sectionId, inputId, value) => {  
+    console.log(`This is sectionId: ${sectionId}`)
+    console.log(`This is inputId: ${inputId}`)
+    console.log(`This is value: ${value}`)
+    const updatedFormInputs = {  
+      ...formValues[sectionId],
+      [inputId]: value, 
+    }
+
+    setFormValues({  
+      ...formValues, 
+      [sectionId]: updatedFormInputs
+    })
+  } 
+
+  const submitHandler = () => {  
+    setFinished(true) 
+    setPage2Values(formValues)
+  }
 
   return (
     <>
@@ -29,7 +48,9 @@ export function AutoForm(props) {
             )
           })
         }
-        <CreateButton />
+        <CreateButton 
+          formSubmitHandler={submitHandler}
+        />
       </Form>
     </>
   )

@@ -3,7 +3,12 @@ import { AutoForm } from "./GenerateForm";
 import data from '../../lib/constants/Forms/Card.json'
 
 export function CardForm(props) {
-  const { setComponentData, children } = props
+  const { 
+    setComponentData, 
+    setPage2Values, 
+    setFinished, 
+    children 
+  } = props
 
   const [formData, setFormData] = useState({
     'componentName': '',
@@ -42,6 +47,8 @@ export function CardForm(props) {
     <>
       <AutoForm
         jsonData={data}
+        setPage2Values={setPage2Values}
+        setFinished={setFinished}
       />
     </>
   )

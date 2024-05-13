@@ -5,7 +5,7 @@ import { DropDownMenu } from "./DropDownMenu";
 export function FormSection(props) {
   const {
     sectionData,
-    formInputChange,
+    handleInputChange,
     children,
   } = props
 
@@ -19,17 +19,19 @@ export function FormSection(props) {
         if (inputData.type === 'text') {
           return (
             <Input
-              key={inputData.inputId}
+              inputId={inputData.inputId}
+              sectionId={sectionData.sectionId}
               header={inputData.label}
-              formInputChange={formInputChange}
+              handleInputChange={handleInputChange}
             />)
         } else if (inputData.type === 'dropdown') {
           return (
             <DropDownMenu
-              key={inputData.inputId}
+              inputId={inputData.inputId}
+              sectionId={sectionData.sectionId}
               header={inputData.label}
               options={inputData.options}
-              formInputChange={formInputChange}
+              handleInputChange={handleInputChange}
             />
           )
         }

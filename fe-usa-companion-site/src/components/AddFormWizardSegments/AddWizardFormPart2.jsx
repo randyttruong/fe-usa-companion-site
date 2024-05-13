@@ -4,6 +4,9 @@ import { NextPrevBar } from '../NextPrevButtons/NextPrevBar'
 import { ErrorStep } from "../WizardErrorMessage/WizardErrorMessage";
 import { pageTypes } from '../../lib/constants/PageTypes'
 import { componentsByPages } from '../../lib/constants/ComponentsByPages'
+import { HeaderForm } from '../Forms/HeaderForm.jsx'
+import { BodyForm } from '../Forms/BodyForm.jsx'
+import { CardForm } from '../Forms/CardForm.jsx'
 
 import './AddFormParts.scss'
 
@@ -17,6 +20,7 @@ export function ComponentDataForm(props) {
     page1Values,
     formValues,
     formValueHandler,
+    setFormStep, 
     children
   } = props
 
@@ -25,44 +29,21 @@ export function ComponentDataForm(props) {
   })
 
   const [toggleError, setToggleError] = useState(false)
-  const [formFields, setFormFields] = useState()
   const [formData, setFormData] = useState({})
+  const [formFields, setFormFields] = useState({})
   const [finished, setFinished] = useState(false)
 
+
   useEffect(() => {
-    console.log("These are page1 values", page1Values)
-    if (!(page1Values)) {
-      setToggleError(true)
-      return
-    }
-
-    const pageType = page1Values['pageType']
-    const componentType = page1Values['componentName']
-
-    if (!(pageType in pageTypes)) {
-      setToggleError(true)
-      return
-    }
-
-    const newFormFields = componentsByPages[pageType][componentType]
-    console.log(componentsByPages[pageType][componentType])
-
-
-    setFormFields(newFormFields) // TODO: Is this a good system? 
+    formValueHandler(null)
   }, [])
-
-  // For a particular componentType, we just 
-  // need to fetch a specific form, the specific 
-  // forms will be listed somewhere else 
-  useEffect(() => {
-    formValueHandler(formData)
-  }, [formData])
 
   useEffect(() => {
     if (finished === true) {
       nextHandler()
+      globalFormSubmit()
     }
-  }, [setFinished])
+  }, [formValues])
 
   const globalFormSubmit = async () => {
     if (!formData) {
@@ -79,8 +60,108 @@ export function ComponentDataForm(props) {
       },
       body: {}
     }
+    console.log('submitted!')
 
-    setFinished(true)
+  }
+
+  useEffect(() => { 
+    console.log("Finished setting form fields")
+    console.log(formValues)
+  }, [formValues])
+
+  
+  function renderForm() {  
+    const pageType = page1Values['pageType']
+    const componentType = page1Values['componentType']
+
+    switch (pageType) {  
+      case 0:  
+        switch (componentType) { 
+          case 0: 
+            return <HeaderForm 
+              formFields={formFields} 
+              setFormFields={setFormFields}
+              setPage2Values={formValueHandler}
+              setFinished={setFinished} 
+            /> 
+
+          case 1: 
+            return <BodyForm 
+              formFields={formFields} 
+              setFormFields={setFormFields}
+              setPage2Values={formValueHandler}
+              nextHandler={nextHandler}
+              setFinished={setFinished} 
+            /> 
+        }
+
+      case 1: 
+        switch (componentType) { 
+          case 'header': 
+            return <HeaderForm 
+              formFields={formFields} 
+              setFormFields={setFormFields}
+              setPage2Values={formValueHandler}
+              nextHandler={nextHandler}
+              setFinished={setFinished} 
+            /> 
+          case 'body': 
+            return <BodyForm 
+              formFields={formFields} 
+              setFormFields={setFormFields}
+              setPage2Values={formValueHandler}
+              nextHandler={nextHandler}
+              setFinished={setFinished} 
+            /> 
+          case 'profileCard': 
+            return <CardForm 
+              formFields={formFields} 
+              setFormFields={setFormFields}
+              setPage2Values={formValueHandler}
+              setFinished={setFinished} 
+              nextHandler={nextHandler}
+            /> 
+        }
+
+      case 2: 
+        switch (componentType) { 
+          case 'header': 
+            return <HeaderForm 
+              formFields={formFields} 
+              setFormFields={setFormFields}
+              setPage2Values={formValueHandler}
+              nextHandler={nextHandler}
+              setFinished={setFinished} 
+            /> 
+          case 'body': 
+            return <BodyForm 
+              formFields={formFields} 
+              setFormFields={setFormFields}
+              setPage2Values={formValueHandler}
+              nextHandler={nextHandler}
+              setFinished={setFinished} 
+            /> 
+        }
+      case 3: 
+        switch (componentType) { 
+          case 'header': 
+            return <HeaderForm 
+              formFields={formFields} 
+              setFormFields={setFormFields}
+              setPage2Values={formValueHandler}
+              nextHandler={nextHandler}
+              setFinished={setFinished} 
+            /> 
+          case 'body': 
+            return <BodyForm 
+              formFields={formFields} 
+              setFormFields={setFormFields}
+              setPage2Values={formValueHandler}
+              nextHandler={nextHandler}
+              setFinished={setFinished} 
+            /> 
+        }
+    }
   }
 
   return (
@@ -94,10 +175,11 @@ export function ComponentDataForm(props) {
           toggleError && <ErrorStep />
           // forms[componentType] // How do I specify the submission button thing? 
         }
-        {
-          <div>
-            {formFields}
-          </div>
+        { 
+          // This just creates an <AutoForm />  element 
+          // that is based on a corresponding JSON file 
+          
+          renderForm()
         }
 
         <NextPrevBar

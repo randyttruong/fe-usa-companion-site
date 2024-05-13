@@ -4,7 +4,9 @@ import data from '../../lib/constants/Forms/Header.json'
 
 export function HeaderForm(props) {
   const {
-    setComponentData,
+    formFields, 
+    setPage2Values, 
+    setFinished,
     children
   } = props
 
@@ -39,11 +41,17 @@ export function HeaderForm(props) {
     setFormData(final)
   }
 
+  useEffect(() => {  
+    console.log(formFields)
+  }, [formFields])
+
 
   return (
     <>
       <AutoForm
         jsonData={data}
+        setPage2Values={setPage2Values}
+        setFinished={setFinished}
       />
     </>
   )
