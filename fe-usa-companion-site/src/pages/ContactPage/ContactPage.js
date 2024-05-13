@@ -41,27 +41,16 @@ function ContactPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        try{ 
-        const resp = await fetch("http://localhost:8000/update-homepage", 
-        {
+        const resp = await fetch("http://localhost:8000/update-homepage/", {
             method: "POST",
             headers: {
-            "Content-Type": "application/json",
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify({address, phone, email}),
-        }); 
+            body: JSON.stringify({ address: address, phone: phone, email: email }),
+        });
 
-        if (resp.ok) { 
-            const data = resp.json();
-            console.log("Successfully updated contact page");
-            console.log(data);
-        } else { 
-            throw new Error("Failed to update contact page"); 
-        }
-
-        } catch (err) { 
-            console.error(err);
-        }
+        const data = await resp.json();
+        console.log(data.message);
     }
         
     return (
