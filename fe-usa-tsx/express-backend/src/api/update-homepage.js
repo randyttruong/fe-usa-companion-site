@@ -1,9 +1,11 @@
 /*
  * update-homepage.js
  * This is a function for updating the homepage of the website. 
- */ 
+ */
 
-const fs = require('fs'); 
+const fs = require('fs');
+const sqlite3 = require('sqlite3')
+const db = require('./initDB.js')
 
 module.exports = (express) => {
   const router = express.Router();
@@ -20,6 +22,41 @@ module.exports = (express) => {
 
     res.json({ message: "Element added successfully" });
   });
+
+  router.get('/get-homepage-components', async (req, res) => {
+    const query = `SELECT * from components`
+
+
+    try {
+      const resp = await new Promise((resolve, reject) => {
+        db.all(query, (err, rows) => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(rows)
+          }
+        })
+      })
+
+      console.log(resp);
+
+      final = {
+        'message': 'successfully captured rows',
+        'length': resp.length,
+        'componentsList': resp,
+      }
+
+      res.json(final)
+    } catch (err) {
+      final = {
+        'message': 'unsuccessfully captured rows',
+        'error': err,
+      }
+
+      res.json(final)
+    }
+
+  })
 
   /*
    * /update-homepage
@@ -39,7 +76,7 @@ module.exports = (express) => {
 
     res.json({ message: "Homepage updated successfully" });
   });
-  
-  return router; 
-}; 
+
+  return router;
+};
 

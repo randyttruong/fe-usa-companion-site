@@ -2,7 +2,11 @@ import React, { useState } from 'react'
 import '../AddComponentButton/AddComponentButton.scss'
 
 export function DeleteButton(props) {
-  const { children } = props
+  const {
+    toggleVar,
+    toggleHandler,
+    children
+  } = props
 
   const onClick = async (event) => {
     const url = `http://localhost:8000/delete-homepage-component/`
@@ -22,7 +26,7 @@ export function DeleteButton(props) {
   return (
     <>
       <div className={'button-container'}>
-        <div className={'add-button'} onClick={onClick}>
+        <div className={'add-button'} onClick={toggleHandler}>
           Delete
         </div>
       </div>

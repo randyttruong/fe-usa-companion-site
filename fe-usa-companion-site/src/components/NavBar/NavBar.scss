@@ -1,22 +1,26 @@
 .NavBar { 
-    position: fixed; 
-    height: 100vh; /* Full-height: remove this if you want "auto" height */
-    width: 200px; /* Specify a width */
-    z-index: 0; /* Stay on top */
-    top: 0; /* Stay at the top */
-    left: 0;
-    background-color: #f8f8f8; /* Light grey background */
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+  position: fixed; 
+  height: 100vh; /* Full-height: remove this if you want "auto" height */
+  width: 200px; /* Specify a width */
+  z-index: 0; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #f8f8f8; /* Light grey background */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-right: solid;
+  border-width: 1px; 
+  border-color: rgb(0,0,0,0.1);
+
 }
 
 .blankSpace { 
-    height: 20px; 
+  height: 20px; 
 }
 
 .content { 
-    margin: 0 auto;
+  margin: 0auto;
 }
 
 .nav-bar-header {  

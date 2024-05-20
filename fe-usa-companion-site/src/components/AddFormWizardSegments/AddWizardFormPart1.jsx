@@ -6,7 +6,7 @@ import { componentTypes } from '../../lib/constants/ComponentTypes.jsx'
 
 import './AddFormParts.scss'
 
-const debug = 1;
+const debug = 0;
 
 function ComponentCardEntry(props) {
   const {
@@ -39,7 +39,7 @@ function ComponentCardEntry(props) {
             'selected-entry' :
             'unselected-entry'}
       >
-        <h1> {id}</h1>
+        {/* <h1> {id}</h1> */}
         <h1> {componentName} </h1>
         <h2> {componentDescription} </h2>
       </div>

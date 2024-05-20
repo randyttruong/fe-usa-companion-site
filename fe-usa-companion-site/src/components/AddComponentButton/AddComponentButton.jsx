@@ -2,36 +2,61 @@ import React, { useState } from 'react'
 import { WizardForm } from './AddWizardForm'
 import { AddButton } from './AddButton'
 import { EditButton } from '../EditComponentWizard/EditComponent'
+import { EditWizardForm } from '../EditComponentWizard/EditWizardForm'
 import { DeleteButton } from '../DeleteComponentWizard/DeleteComponent'
 import './AddComponentButton.scss'
+import { DeleteWizardForm } from '../DeleteComponentWizard/DeleteWizardForm'
+import { ModeDirections } from '../ModeDirections/ModeDirections'
 
 export function AddComponentButton(props) {
-  const { pageType } = props
+  const {
+    pageType,
+    globalMode,
+    editToggleHandler,
+    deleteToggleHandler,
+    selectedComp,
+  } = props
 
-  const [overlayToggle, setOverlay] = useState(false)
+  const [overlayAddToggle, setAddOverlay] = useState(false)
+  const [overlayEditToggle, setEditOverlay] = useState(false)
+  const [overlayDeleteToggle, setDeleteOverlay] = useState(false)
 
-  const toggleHandler = (event) => {
-    setOverlay(!overlayToggle)
+  const addToggleHandler = (event) => {
+    setAddOverlay(!overlayAddToggle)
   }
 
+  // There are three modes:  
+  // modes = {  
+  //  0: None, 
+  //  1: Edit, 
+  //  2: Delete, 
+  // }
+  //
   return (
     <>
       <div className={'new-component-container'}>
         <AddButton
-          toggleVar={overlayToggle}
-          toggleHandler={toggleHandler}
+          toggleVar={overlayAddToggle}
+          toggleHandler={addToggleHandler}
         />
-        <EditButton />
-        <DeleteButton />
+        <EditButton
+          toggleVar={overlayEditToggle}
+          toggleHandler={editToggleHandler}
+        />
+        <DeleteButton
+          toggleVar={overlayDeleteToggle}
+          toggleHandler={deleteToggleHandler}
+        />
         {
-          overlayToggle
+          overlayAddToggle
           &&
           <WizardForm
             pageType={pageType}
-            toggleOverlayHandler={toggleHandler}
+            toggleOverlayHandler={addToggleHandler}
           />
         }
       </div>
+      <ModeDirections globalMode={globalMode} />
     </>
   )
 }

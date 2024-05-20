@@ -11,11 +11,28 @@
 
 .body { 
   display: flex;
+  flex-direction: column;
   padding-bottom: 5rem;
-  border-left: solid; 
+  border-left: none; 
   border-width: 1px;
-  border-color: rgba(0,0,0, 0.2);
+  border-color: rgba(0,0,0, 0.2); 
+  margin-left: calc(200px + 2rem);
+} 
+@media (max-width: 800px) {
+    .body {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
 }
+
+@media (max-width: 600px) {
+    .body {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+}
+
+
 
 .App {
   text-align: center;

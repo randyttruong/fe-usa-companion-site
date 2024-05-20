@@ -1,11 +1,12 @@
 import React from 'react';
 import './Banner.scss'
 
-function Banner() {
+function Banner(props) {
+  const { title } = props
   return (
     <>
       <div className="banner">
-        <h1 className="logo"> FE USA Companion Site</h1>
+        <h1 className="logo">{title}</h1>
       </div>
     </>
   );

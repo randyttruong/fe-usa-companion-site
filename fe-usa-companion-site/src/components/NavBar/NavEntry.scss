@@ -33,7 +33,10 @@ $text_color: rgba(0,0,0, 0.8);
 }
 
 .entry-logo { 
-    border: none;
+    border-bottom: solid; 
+    border-width: 1px;
+    border-color: rgb(0,0,0,0.1);
+    margin-bottom: 2rem;
     width: 100%;
     height: auto;
     display: flex; 
@@ -44,6 +47,8 @@ $text_color: rgba(0,0,0, 0.8);
     padding-top: 2rem;
     padding-bottom: 2rem;
 } 
+
+
 
 .NavEntry:hover {
     background-color: rgba(0,0,0,0.3); /* Darker grey on hover */

@@ -6,20 +6,20 @@ export const componentTypes = [
   {
     components: [
       {
-        name: "header",
-        description: "A header that proudly displays text.",
+        name: "Header",
+        description: "A header that boldly displays text.",
       },
       {
-        name: "body",
-        description: "A header that proudly displays text.",
+        name: "Body",
+        description: "A body component that proudly displays text.",
       },
     ]
   },
   {
     components: [
       {
-        name: "profileCard",
-        description: "A cool profile card."
+        name: "Profile Card",
+        description: "A stylish profile card."
       }
     ]
   },

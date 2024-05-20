@@ -1,5 +1,5 @@
 import React from "react";
-import "./AboutPage.scss";
+import '../Theme.scss'
 import NavBar from "../../components/NavBar/NavBar";
 import Banner from "../../components/Banner/Banner";
 import { ExistingComponentsTable } from '../../components/ExistingComponentsTable/ExistingComponentsTable'
@@ -10,13 +10,15 @@ function AboutPage() {
     <>
       <NavBar />
       <div className="editor-container">
-        <Banner title={'About Us'} />
         <div className="body">
+          <Banner title={'About Us'} />
+          <div className={'editor-content'}>
+            <AddComponentButton pageType={1} />
+          </div>
           <div className="about-content">
             <ExistingComponentsTable
               pageType={1}
             />
-            <AddComponentButton pageType={1} />
           </div>
         </div>
       </div>

@@ -1,0 +1,96 @@
+ @keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+.editor-container { 
+  z-index: 10;
+  box-shadow: 5px 0 0 0 rgba(0,0,0, 0.1);
+}
+
+// note put this for the rest of the different SCSS files lol 
+.editor-content { 
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+
+.landing-content {
+    margin-top: 3rem;
+    padding-left: 20%;
+    padding-right: 20%;
+    border-radius: 15px;
+  h1 {  
+    font-size: 36px;
+     font-weight: 700;
+    padding-bottom: 1rem;
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: rgb(0, 0, 0, 0.1);
+  }
+  h1:hover {  
+    color: #001994;
+    border-color: #001994;
+    transition: 0.35s;
+  }
+  h2 {  
+    font-size: 32px;
+     font-weight: 600;
+     padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: solid;
+    border-width: 1px;
+    border-color: rgb(0, 0, 0, 0.1);
+
+  }
+  h2:hover {  
+    color: #001994;
+    border-color: #001994;
+    transition: 0.35s;
+  }
+  p {   
+    font-size: 24px;
+  }
+}
+
+tt {  
+   color: #001994;
+   border-radius: 5px;
+   background-color: #ebebeb;
+   padding-left: 0.5rem;
+   padding-right: 0.5rem;
+ }
+
+.block {  
+  margin-bottom: 5rem;
+}
+.nested-block {  
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
+@media (max-width: 1200px) {
+    .landing-content {
+        padding-left: 20%;
+        padding-right: 20%;
+    }
+}
+
+@media (max-width: 800px) {
+    .landing-content {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}
+
+@media (max-width: 600px) {
+    .landing-content {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+}
+
+

@@ -8,59 +8,80 @@
  */
 
 import React, { useState, useEffect } from 'react'
-import './Homepage.scss'
+import '../Theme.scss'
 import Banner from '../../components/Banner/Banner'
 import NavBar from '../../components/NavBar/NavBar';
 import { ExistingComponentsTable } from '../../components/ExistingComponentsTable/ExistingComponentsTable'
 import { AddComponentButton } from '../../components/AddComponentButton/AddComponentButton'
+import { ContinueButton } from '../../components/ContinueWizard/ContinueButton';
+
 
 function Homepage() {
+  const debug = 1;
   const [title, setTitle] = useState("");
   const [missionText, setMissionText] = useState("");
 
-  // handleTitleChange(): 
-  // Helper function for setting 
-  // the title of the homepage.
-  const handleTitleChange = (str) => {
-    setTitle(str);
-    console.log(`This is str ${str}`)
+  const [globalMode, setGlobalMode] = useState(0);
+  const [selectedComp, setSelectedComp] = useState(
+    { 'name': 'default' }
+  )
+
+  const editToggleHandler = (event) => {
+    if (globalMode === 1) {
+      setGlobalMode(0)
+    } else {
+      setGlobalMode(1)
+    }
   }
 
-  // handleMissionTextChange()
-  // Helper function for setting the 
-  // description of the homepage 
-  const handleMissionTextChange = (str) => {
-    setMissionText(str);
+  const deleteToggleHandler = (event) => {
+    if (globalMode === 2) {
+      setGlobalMode(0)
+    } else {
+      setGlobalMode(2)
+    }
   }
 
-  // handleSubmit
-  // Helper function for sending form data to the API
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const resp = await fetch("http://localhost:8000/update-homepage/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title: title, missionText: missionText }),
-    });
-
-    const data = await resp.json();
-    console.log(data.message);
-  }
+  const [componentList, setComponentList] = useState([])
 
   return (
     <>
       <NavBar />
       <div className="editor-container">
-        <Banner title={'Homepage'} />
         <div className='body'>
-          <div className="homepage-editor-content">
-            <ExistingComponentsTable pageType={0} />
-            <AddComponentButton pageType={0} />
+          <Banner title={'Homepage'} />
+          {/*<div> this is the globalMode: {globalMode}</div>*/}
+          {/*debug &&
+            <div>
+              <div>this is the globalMode: {globalMode}</div>
+              <div>this is the selectedComp: {selectedComp['name']} {selectedComp['desc']} {selectedComp['type']}</div>
+  </div>*/}
+          <div className={'editor-content'}>
+            <AddComponentButton
+              pageType={0}
+              globalMode={globalMode}
+              editToggleHandler={editToggleHandler}
+              deleteToggleHandler={deleteToggleHandler}
+              selectedComp={selectedComp}
+            />
           </div>
+          <ExistingComponentsTable
+            componentList={componentList}
+            pageType={0}
+            globalMode={globalMode}
+            setGlobalMode={setGlobalMode}
+            selectedComp={selectedComp}
+            setSelectedComp={setSelectedComp}
+          />
+          {(globalMode !== 0
+            && selectedComp['default'] === 0)
+            && <ContinueButton
+              globalMode={globalMode}
+              selectedComp={selectedComp}
+            />
+          }
         </div>
+
       </div>
     </>
   );

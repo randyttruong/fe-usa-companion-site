@@ -3,6 +3,7 @@ import ReactLoading from 'react-loading'
 import { ExistingComponentEntry } from "./ExistingComponentEntry";
 import { FaCirclePlus, FaAnglesDown } from 'react-icons/fa6'
 import { fetchRoutes } from '../../lib/constants/FetchPageURLs'
+import { ContinueButton } from "../ContinueWizard/ContinueButton";
 import './ComponentsTable.scss'
 
 const offset = 5
@@ -29,6 +30,9 @@ function ShowMoreComponentsButton(props) {
 export function ExistingComponentsTable(props) {
   const {
     pageType,
+    globalMode,
+    selectedComp,
+    setSelectedComp,
     children
   } = props
 
@@ -105,7 +109,7 @@ export function ExistingComponentsTable(props) {
   return (
     <>
       <div>
-        {`length: ${componentsList.length}`}
+        {/* `length: ${componentsList.length}` */}
       </div>
       <div className={'component-table'}>
         <ExistingComponentEntry
@@ -114,6 +118,8 @@ export function ExistingComponentsTable(props) {
           desc={'Description'}
           type={'Type'}
           start={true}
+          selectedComp={selectedComp}
+          setSelectedComp={setSelectedComp}
         />
 
         {(isLoading) ?
@@ -136,7 +142,10 @@ export function ExistingComponentsTable(props) {
                         desc={desc}
                         type={type}
                         start={false}
+                        globalMode={globalMode}
                         key={key}
+                        selectedComp={selectedComp}
+                        setSelectedComp={setSelectedComp}
                       />
                     )
                   })
@@ -151,6 +160,7 @@ export function ExistingComponentsTable(props) {
             </>)
         }
       </div>
+
     </>
   )
 }

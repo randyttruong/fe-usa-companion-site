@@ -1,16 +1,21 @@
 import React from "react";
 import '../AddFormWizardSegments/AddFormParts.scss'
 
-export function EditWizardForm(props) {
+export function DeleteWizardForm(props) {
   const {
-    componentsList,
     pageType,
     toggleOverlay,
     toggleOverlayHandler,
+    componentsList,
     children
   } = props
 
+
   const renderSteps = () => {
+    return (
+      <>
+      </>
+    )
   }
 
   return (

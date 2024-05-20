@@ -1,17 +1,10 @@
 .editor-container { 
-  margin-left: calc(200px + 1rem);
   z-index: 10;
   box-shadow: 5px 0 0 0 rgba(0,0,0, 0.1);
 }
 
-.body { 
-    display: flex; 
-}
-
+// note put this for the rest of the different SCSS files lol 
 .homepage-editor-content { 
-  display: grid; 
-  grid-template-columns: 4fr 1fr;
-  padding-left: 5%;
-  padding-right: 5%;
-  }
-
+  margin-left: 3rem;
+  margin-right: 3rem;
+}

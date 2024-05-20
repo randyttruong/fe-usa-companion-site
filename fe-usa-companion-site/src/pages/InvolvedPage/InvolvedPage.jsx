@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import "./InvolvedPage.scss";
+import '../Theme.scss'
 import Banner from "../../components/Banner/Banner";
 import NavBar from "../../components/NavBar/NavBar";
 import ComponentImage from '../../components/ComponentImage/ComponentImage';
@@ -62,19 +62,21 @@ function InvolvedPage() {
     <>
       <NavBar />
       <div className="editor-container">
-        <Banner title={'Getting Involved'} />
         <div className="body">
+          <Banner title={'Get Involved'} />
           <div className="involved-content">
+            <div className={'editor-content'}>
+              <AddComponentButton pageType={2} />
+            </div>
             <ExistingComponentsTable pageType={2} />
-            <AddComponentButton pageType={2} />
-            <form onSubmit={handleSubmit}>
+            {/*<form onSubmit={handleSubmit}>
               <ComponentImage
                 label="Image"
                 value={imageData}
                 fn={handleImageChange}
               />
               <ComponentSubmit />
-            </form>
+  </form> */}
           </div>
         </div>
       </div>

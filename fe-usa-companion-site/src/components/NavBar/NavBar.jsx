@@ -1,10 +1,17 @@
-import React, {useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import NavEntry from './NavEntry';
-import './NavBar.scss'; 
+import './NavBar.scss';
 import { FaScroll, FaHouse, FaFaceLaughBeam, FaPhoneVolume, FaHandHoldingHeart } from "react-icons/fa6";
 import { NavBarHeader } from './NavBarHeader'
 
+const NavBarDivider = (props) => {
+  const { children } = props
+  return (
+    <>
+    </>
+  )
+}
 
 function NavBar() {
 
@@ -16,35 +23,35 @@ function NavBar() {
       title: 'Getting Started',
     },
     {
-      icon: <FaScroll className={'icon'} size={16}/>, 
+      icon: <FaScroll className={'icon'} size={16} />,
       id: 0,
       title: "Instructions",
       route: "/",
     },
     {
       id: -1,
-      title: 'Your Pages',
+      title: 'Edit Pages',
     },
     {
-      icon: <FaHouse className={'icon'} size={16}/>,
+      icon: <FaHouse className={'icon'} size={16} />,
       id: 1,
       title: "Homepage",
       route: "/homepageEditor",
     },
     {
-      icon: <FaFaceLaughBeam className={'icon'} size={16}/>,
-      id: 2,  
+      icon: <FaFaceLaughBeam className={'icon'} size={16} />,
+      id: 2,
       title: "About Us",
       route: "/aboutEditor",
     },
     {
-      icon: <FaPhoneVolume className={'icon'}size={16}/>,
-      id: 3,  
+      icon: <FaPhoneVolume className={'icon'} size={16} />,
+      id: 3,
       title: "Contact Us",
       route: "/contactEditor",
     },
     {
-      icon: <FaHandHoldingHeart className={'icon'}size={16}/>,
+      icon: <FaHandHoldingHeart className={'icon'} size={16} />,
       id: 4,
       title: "Get Involved",
       route: "/involvedEditor",
@@ -57,20 +64,21 @@ function NavBar() {
         <div className="content">
           <NavEntry title={'FE USA Companion Site'} logo={true} />
           {subpages.map((s, i) => {
-            if (s.id == -1) {  
+            if (s.id == -1) {
               return (
                 <>
                   <NavBarHeader>{s.title}</NavBarHeader>
-                </> 
-              ) 
+                  <NavBarDivider></NavBarDivider>
+                </>
+              )
             }
             return (
               <>
-                <NavEntry 
+                <NavEntry
                   icon={s.icon}
-                  title={s.title} 
-                  key={`${s.title}_${s.id}_${i}`} 
-                  route={s.route} 
+                  title={s.title}
+                  key={`${s.title}_${s.id}_${i}`}
+                  route={s.route}
                   logo={false}
                   globalSelected={selected}
                   setGlobalSelected={setSelected}

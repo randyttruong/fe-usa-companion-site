@@ -46,7 +46,7 @@ $click_color: rgba(0,0,0,0.3);
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-direction: column;
+  flex-direction: rleftolumn;
   animation: fadeIn 0.25s ease-in forwards;
 }
 
@@ -57,21 +57,22 @@ $click_color: rgba(0,0,0,0.3);
 
 .add-button-container {  
   display: flex;
-  margin-left: 3rem;
 }
 
 .new-component-container {  
+  display:flex; 
+  justify-content: end;
   margin-top: 3rem;
-  margin-left: 2rem;
+  width: 100%;
+
 }
 
 .button-container {  
-  height: auto; 
   width: 8rem;
+  margin-left: 2rem;
 }
 
 .add-button {  
-  margin-bottom: 1rem;
   padding: 1rem;
   width: auto;
   height: auto;
@@ -79,7 +80,7 @@ $click_color: rgba(0,0,0,0.3);
   align-content: center; 
   justify-content: center; 
   border-radius: 15px; 
-  box-shadow: 0px 0px 2px 2px rgb(0, 0, 0, 0.2);
+  box-shadow: 0 0 4px rgb(0, 0, 0, 0.6);
   &:hover {  
     background-color: $border_color;
     transition: 0.2s;
