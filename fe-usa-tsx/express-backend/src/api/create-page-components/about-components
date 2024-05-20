@@ -1,25 +1,21 @@
 /* 
  * create-component.js 
-    * This is a function for creating a new component for the website.
+ * This is a function for creating a new component for the website.
  */ 
-
-const app= require('../server.js');  
 
 const express = require('express');
 const router = express.Router(); 
 const sqlite3 = require('sqlite3'); 
+const { v4: uuidv4 } = require('uuid');
+const fs = require('fs');
+const path = require('path');
 
-const db = require('./initDB.js')
+const db = require('./initDB.js');
 
-const insertQuery = `INSERT INTO components (component_name, component_type, data) VALUES (?, ?, ?)` ;
+const insertQuery = `INSERT INTO components (component_name, component_type, data, uuid) VALUES (?, ?, ?, ?)` ;
 const sanity = `SELECT * from components`; 
 
-// What are the different attributes of a React component? 
-// - Component Type 
-// - Classname / id 
-// - data
-
-class componentStructure { 
+class ComponentStructure { 
   constructor(type, id, data) {
     this.type = type; 
     this.id = id;
@@ -28,133 +24,99 @@ class componentStructure {
 }
 
 async function insertItem(params) { 
-  const { } = params  
-
-
   try {
-    const resp1 = await db.run(insertQuery, (err) => {  
-      if (err) { reject(err) } 
-      else { resolve() }
-    })
-
-  } catch (err) {  
-    return 
-  }
-
-  return 
-}
-
-async function sanityCheck() {  
-  const resp = await new Promise((resolve, reject) => { 
-    db.all(sanity, (err, rows) => { 
-      if (err) { reject(err) } 
-      else { resolve(rows) }
-    })
-  })
-
-  return resp 
-}
-
-
-async function createBody(compData) {
-  const { name, profile, children } = compData; 
-  let final = `<AboutSection name="${name}" left={false} profile="${profile}">
-  ${children}
-</AboutSection>`;
-
-  const params = ["test", "textbox", data]; 
-
-  try {
-   
-    await new Promise((resolve, reject) => { 
-      db.run(insertQuery, params, (err) => {
+    await new Promise((resolve, reject) => {
+      db.run(insertQuery, params, (err) => {  
         if (err) {
           reject(err);
         } else {
           resolve();
         }
       });
-    }); 
+    });
+  } catch (err) {  
+    console.error("Error inserting item:", err);
+    throw err;
+  }
+}
 
-    
-    const imageInsertionResult = await insertImage(profile); 
-
-    
+async function sanityCheck() {  
+  try {
     const rows = await new Promise((resolve, reject) => { 
-      db.all(sanity, (err, rows) => {  
+      db.all(sanity, (err, rows) => { 
         if (err) { 
-          reject(err);
-        } else {  
+          reject(err); 
+        } else { 
           resolve(rows);
         }
       });
     });
+    return rows;
+  } catch (err) {
+    console.error("Error performing sanity check:", err);
+    throw err;
+  }
+}
+
+async function createBody(compData) {
+  const { name, profile, children } = compData; 
+  const final = `<AboutSection name="${name}" left={false} profile="${profile}">
+  ${children}
+</AboutSection>`;
+
+  const newId = uuidv4();
+  const params = ["test", "textbox", final, newId]; 
+
+  try {
+    await insertItem(params);
+    const imageInsertionResult = await insertImage({ data: profile });
+
+    const rows = await sanityCheck();
 
     console.log(rows); 
     console.log(imageInsertionResult); 
-
   } catch (err) {
-    console.log(err); 
+    console.log("Error creating body component:", err); 
   }
 
   return final;
-} 
-
+}
 
 async function insertImage(compData) {
   const { data } = compData;
   const binaryData = Buffer.from(data, 'base64');
-
-  const params = ["test", "image", binaryData];
+  const filename = `image_${Date.now()}.jpg`; 
+  const filePath = path.join(__dirname, 'public', filename);
 
   try {
-    const resp = await new Promise((resolve, reject) => { 
-      db.run(insertQuery, params, (err) => {
-        if (err) {
-          reject(err) 
-        } else {
-          resolve() 
-        }
-      })
-    }); 
-
-    const resp2 = await new Promise((resolve, reject) => { 
-      db.all(sanity, (err, rows) => {  
-        if (err) { 
-          reject(err)
-        } else {  
-          resolve(rows)
-        }
-      }) 
-    })
-
-    console.log(resp2); 
-
+    await fs.promises.writeFile(filePath, binaryData);
+    const newId = uuidv4();
+    const params = ["test", "image", filePath, newId];
+    await insertItem(params);
+    const rows = await sanityCheck();
+    console.log(rows); 
   } catch (err) {
-    console.log(err); 
-
+    console.error("Error while inserting image:", err);
+    throw err;
   }
 }
-
 
 async function createCard(compData) {
   const { name, profile, body } = compData;
 
   try {
-    
-    const profileImageInsertionResult = await insertImage(profileImage);
-
-    const bodyComponent = await createBody({ name: name, profile: profile, children: body });
+    const profileImageInsertionResult = await insertImage({ data: profile });
+    const bodyComponent = await createBody({ name, profile, children: body });
 
     return {
-      header: headerComponent,
+      header: name,
       body: bodyComponent,
       profileImageInsertionResult: profileImageInsertionResult,
-      
     };
   } catch (error) {
-   
     console.error("Error creating card:", error);
     throw error; 
   }
 }
+
+module.exports = { createCard, createBody, insertImage, insertItem, sanityCheck };

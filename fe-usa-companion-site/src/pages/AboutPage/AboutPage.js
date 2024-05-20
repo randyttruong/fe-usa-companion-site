@@ -91,7 +91,7 @@ function AboutPage() {
               <ComponentSubmit />
             </form>           
           </div>
-        </div>
+        </div> 
       </div>
     </>
   );

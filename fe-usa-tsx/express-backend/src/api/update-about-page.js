@@ -1,57 +1,53 @@
-
 const fs = require('fs'); 
+const path = require('path');
 const { createCard, createBody, insertImage } = require('./about-components');
 
 module.exports = (express) => {
   const router = express.Router();
 
-  const srcCodeDir =
-    "/home/randyt/projects/fe-usa-companion-site/fe-usa-tsx/fe-usa/src/pages/AboutPage.tsx";
-
+  const srcCodeDir = "/home/randyt/projects/fe-usa-companion-site/fe-usa-tsx/fe-usa/src/pages/AboutPage.tsx";
 
   router.post("/add-element", async (req, res) => {
     const { name, profile, children } = req.body;
 
-    try{
-
+    try {
       const newCardData = { name, profile, body: children };
       const newCard = await createCard(newCardData);
 
       let sourceCode = fs.readFileSync(srcCodeDir, "utf8");
 
-      sourceCode += `\n${newCard.header}\n${newCard.body}`;
+      sourceCode += `\n<CardComponent id="${newCard.id}" name="${newCard.name}" profile="${newCard.profile}" body="${newCard.body}" />`;
 
       fs.writeFileSync(srcCodeDir, sourceCode);
 
-      res.json({ message: "Card added successfully" });
+      res.json({ message: "Card added successfully", id: newCard.id });
 
-    } 
-    
-    catch (error) {
+    } catch (error) {
       console.error("Error adding element:", error);
       res.status(500).json({ error: "Internal server error" });
     }
   });
 
-  
   router.post("/update-aboutpage", async (req, res) => {
-    const { name, profile, children } = req.body;
+    const { id, name, profile, children } = req.body;
 
     try {
-      
       const bodyComponent = await createBody({ name, profile, children });
 
-      await insertImage({ data: profile });
+      const imagePath = await insertImage({ data: profile });
 
       let sourceCode = fs.readFileSync(srcCodeDir, "utf8");
 
-      
-      sourceCode = sourceCode.replace(
-        /<AboutSection.*?<\/AboutSection>/s,
-        bodyComponent
-      );
+      // Update AboutSection based on id
+      const regex = new RegExp(`<CardComponent id="${id}".*?</CardComponent>`, 's');
+      sourceCode = sourceCode.replace(regex, bodyComponent);
 
-     
+      // Insert the import statement at the first blank line
+      const lines = sourceCode.split('\n');
+      const importIndex = lines.findIndex(line => line.trim() === '');
+      lines.splice(importIndex, 0, `import "${imagePath}";`);
+      sourceCode = lines.join('\n');
+
       fs.writeFileSync(srcCodeDir, sourceCode);
 
       res.json({ message: "About page updated successfully" });
@@ -60,7 +56,6 @@ module.exports = (express) => {
       res.status(500).json({ error: "Internal server error" });
     }
   });
-  
-  return router; 
-}; 
 
+  return router; 
+};
