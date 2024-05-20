@@ -1,0 +1,28 @@
+.create-button {  
+  width: 500px;
+  color: white; 
+  background-color: black; 
+  font-size: 16pt; 
+  border-radius: 5px;
+  border: none;
+  padding: 0.75rem;
+  margin-top: 1rem;
+
+  &:hover {  
+    color: black; 
+    background-color: white; 
+    transition: 0.2s;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.4);
+  }
+}
+
+.form-container {  
+  width: 500px; 
+  height: auto; 
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  margin: 0 auto;
+  padding-top: 20px; 
+}
