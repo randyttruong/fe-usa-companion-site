@@ -7,13 +7,40 @@ function LoginPage({ onLogin }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     // Check if the entered credentials are correct
-    if (email === "fe_usa" && password === "admin1") {
-      onLogin();
-    } else {
-      setError("Invalid username or password");
+    // frontend version
+    // if (email === "fe_usa" && password === "admin1") {
+    //   onLogin();
+    // } else {
+    //   setError("Invalid username or password");
+    // }
+
+    try{ 
+      const resp = await fetch("http://localhost:8000/login", 
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      }); 
+
+      if (resp.ok) { 
+        const data = await resp.json();
+        if(data.message === "Success"){
+          onLogin();
+        }
+        else{
+          setError("Invalid username or password");
+        }
+      } else { 
+        throw new Error("Failed to update homepage"); 
+      }
+
+    } catch (err) { 
+      console.error(err);
     }
   };
 

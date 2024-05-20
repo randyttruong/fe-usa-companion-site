@@ -8,6 +8,7 @@ app.use(express.json());
 app.use(cors()); 
 
 api_updatehomepage = require("./api/update-homepage.js")(express);
+api_login = require("./api/login-check.js")(express);
 api_utils = require('./api/utils.js')
 
 /* 
@@ -15,6 +16,7 @@ api_utils = require('./api/utils.js')
  * TODO: Add middleware 
  */ 
 app.use('/', api_updatehomepage);
+app.use('/login', api_login);
 app.use('/utils', api_utils)
 
 /* 
